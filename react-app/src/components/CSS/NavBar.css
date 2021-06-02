@@ -1,0 +1,26 @@
+.nav-nav {
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: space-around;
+}
+.logo-container {
+  height: 100%;
+}
+.logo-image {
+  height: 100%;
+}
+.nav-nav.active {
+  background-color: #dddddd;
+}
+.auth-container {
+  list-style: none;
+  display: flex;
+  color: black;
+  align-items: center;
+  /* width: 20%; */
+  justify-content: space-between;
+}
+.sign-up {
+  padding-right: 25px;
+}
