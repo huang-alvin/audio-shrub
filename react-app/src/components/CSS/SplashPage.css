@@ -1,0 +1,46 @@
+.featured-wrapper {
+  width: 100%;
+  height: 600px;
+  background-color: #222;
+}
+.featured-grid {
+  display: grid;
+  grid-template-areas: "main side";
+  padding-left: 9%;
+  padding-right: 9%;
+  grid-template-columns: 75% 25%;
+  height: 100%;
+}
+.side-feature-wrapper {
+  grid-area: side;
+  display: grid;
+  /* flex-direction: column; */
+  grid-template-rows: repeat(3, 1fr);
+
+  box-sizing: border-box;
+  margin-left: 1%;
+}
+.main-feature-wrapper {
+  grid-area: main;
+  background-color: aqua;
+  height: 100%;
+}
+.side-feature-1,
+.side-feature-2 {
+  margin-bottom: 1%;
+}
+.side-feature {
+  background-color: magenta;
+}
+.currently-selling-wrapper {
+  height: 400px;
+  background-color: beige;
+}
+.new-and-notable-wrapper {
+  height: 400px;
+  background-color: burlywood;
+}
+.filter-search-wrapper {
+  height: 400px;
+  background-color: darkcyan;
+}

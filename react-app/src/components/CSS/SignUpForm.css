@@ -1,0 +1,10 @@
+.sign-up-input {
+  border-color: #ccc;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+  outline: none;
+  height: 35px;
+  margin: 10px;
+  width: 300px;
+  display: inline-block;
+}

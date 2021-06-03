@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
+import ProfileButton from "./ProfileButton";
+import logo from "../images/logo.png";
 import "./CSS/NavBar.css";
 
 const NavBar = () => {
@@ -10,7 +12,7 @@ const NavBar = () => {
   let location = useLocation().pathname;
   useEffect(() => {
     const nav = document.querySelector(".nav-nav");
-    if (location === "/login") {
+    if (location === "/login" || location === "/sign-up") {
       nav.classList.add("active");
     } else {
       nav.classList.remove("active");
@@ -20,7 +22,7 @@ const NavBar = () => {
     <nav className="nav-nav">
       <div className="logo-container">
         <Link to="/">
-          <img src="logo.png" className="logo-image" />
+          <img src={logo} className="logo-image" />
         </Link>
       </div>
       <ul className="auth-container">
@@ -43,16 +45,13 @@ const NavBar = () => {
             </NavLink>
           </li>
         )}
-        <li>
-          <NavLink to="/users" exact={true} activeClassName="active">
-            Users
-          </NavLink>
-        </li>
+        <li>{user && <ProfileButton />}</li>
+        {/* remove logout button below
         {user && (
           <li>
             <LogoutButton />
           </li>
-        )}
+        )} */}
       </ul>
     </nav>
   );

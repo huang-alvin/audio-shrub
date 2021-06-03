@@ -1,4 +1,5 @@
 from .db import db
+from .tag import tags
 
 class Music_Post(db.Model):
     __tablename__ = "music_posts"
@@ -11,4 +12,4 @@ class Music_Post(db.Model):
     image = db.Column(db.String, nullable=True)
 
     tags = db.relationship("Category", secondary=tags, back_populates="music_posts")
-    songs = db.relationship("Song", backref="music_posts", lazy="select")
+    songs = db.relationship("Song", backref="music_post", lazy="select")

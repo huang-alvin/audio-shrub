@@ -5,4 +5,4 @@ from .merchandise import Merchandise
 from .music_post import Music_Post
 from .my_collection import My_Collection
 from .song import Song
-from .tag import tag
+from .tag import tags

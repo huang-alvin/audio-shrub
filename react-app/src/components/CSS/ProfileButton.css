@@ -1,0 +1,14 @@
+.profile-button {
+  position: relative;
+}
+.profile-dropdown {
+  position: absolute;
+  right: 3%;
+  margin-top: 10px;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
