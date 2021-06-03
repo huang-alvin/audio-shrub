@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
 
+  my_collection = db.relationship("My_Collection", lazy="select")
 
   @property
   def password(self):
@@ -31,3 +32,12 @@ class User(db.Model, UserMixin):
       "username": self.username,
       "email": self.email
     }
+
+  # def collection(self):
+  #   collection=None
+  #   for collection_item in self.my_collection():
+  #     if(collection_item.song_id):
+
+  #   return {
+
+  #   }
