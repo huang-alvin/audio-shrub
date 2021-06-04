@@ -1,0 +1,14 @@
+.music-content-wrapper {
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+  background-color: aqua;
+  height: 150px;
+  display: grid;
+  grid-template-areas: "main-content profile";
+  grid-template-columns: 80% 20%;
+}
+.profile-container {
+  grid-area: profile;
+  background-color: blanchedalmond;
+}
