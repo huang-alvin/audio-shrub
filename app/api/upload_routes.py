@@ -1,7 +1,10 @@
 from flask import Blueprint, jsonify, request
-from .boto3 import upload_user_music, s3_client
-from botocore.exceptions import NoCredentialsError
 from werkzeug.exceptions import BadRequestKeyError
+from ..models import db, Music_Post, Song
+
+# ====== BOTO3 imports ===============
+from .boto3 import user_upload, s3_client
+from botocore.exceptions import NoCredentialsError
 import boto3
 
 upload_routes = Blueprint('upload', __name__)
@@ -30,24 +33,38 @@ upload_routes = Blueprint('upload', __name__)
 
 
 @upload_routes.route('/music', methods=['POST'])
-def upload_music():
+def upload_music_post():
+    # write middleware to handle err handling.
+    #  in the middleware any fails immediately returns err message
     try:
+        form = request.form
+        num_songs = form["num_songs"]
 
-        # f = request.form['song'] doesn't work
-        # f = request.form.get('song') get None
-        # f = request.files('title') typeError
-        # f = request.files['song'] bad key req
-        # f = request.files['title']
-        # title = request.form['title'] bad key req
-        # title = request.get_data()
-        # print(title)
-        f = request.form.get('price')
-        print(f, "="*40)
+        music_post = Music_Post(
+            user_id=form["user_id"],
+            title=form["title"],
+            description=form["description"],
+            price=form["price"]
+        )
+        db.session.add(music_post)
+        db.session.commit()
 
-        # successful_upload  = upload_user_music(f[0], "test-song")
-        # print("upload success")
+        for x in range(0,int(num_songs)):
+            form_song = request.files[f"song-{x}"]
+            song = Song(
+                title=form_song.filename,
+                music_post_id=music_post.id,
+            )
+            db.session.add(song)
+            db.session.flush()
 
-        return {"hello":"hi"}
+            upload_success = user_upload(form_song, f"song/{song.id}")
+            if upload_success:
+                song.url = f"https://audio-shrub.s3.amazonaws.com/song/{song.id}"
+            else:
+                return {"error": "song upload failed"}
+        db.session.commit()
+        return {"success":"success"}
     except FileNotFoundError:
         print("The file was not found")
         return False
@@ -60,7 +77,3 @@ def upload_music():
     except Exception as e:
         print(e)
         return {"fial":'fail'}
-
-    # except Exception as err:
-    #     print(err)
-    # return {"temp":"tmep"}

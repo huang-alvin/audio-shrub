@@ -8,10 +8,19 @@ const MusicForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [song, setSong] = useState(null);
+  const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState(null);
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.session.user.id);
 
+  const updateSong = (e) => {
+    setSong(e.target.files);
+  };
+  const updateImage = (e) => {
+    setImage(e.target.files[0]);
+  };
   const updateTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -23,12 +32,21 @@ const MusicForm = () => {
   };
   const uploadUserMusic = async (e) => {
     e.preventDefault();
+
     const mForm = document.querySelector(".music-form");
-    const form = new FormData(mForm);
-    // for (let input of form) {
-    //   console.log(input);
-    // }
-    // console.log(form.get("song"));
+    let numSongs = 0;
+    const form = new FormData();
+    form.append("title", title);
+    form.append("description", description);
+    form.append("price", price);
+    form.append("image", image);
+    form.append("user_id", userId);
+
+    for (let songFile of song) {
+      form.append(`song-${numSongs}`, songFile);
+      numSongs++;
+    }
+    form.append("num_songs", numSongs);
     dispatch(uploadMusic(form));
   };
   useEffect(() => {
@@ -88,7 +106,7 @@ const MusicForm = () => {
             <input
               type="file"
               name="image"
-              //   onChange={updatePrice}
+              onChange={updateImage}
               className="image-input"
               accept=".png,.jpeg"
             ></input>
@@ -101,6 +119,7 @@ const MusicForm = () => {
               className="song-input"
               accept=".mp3,.mp4,.m4a"
               multiple
+              onChange={updateSong}
               required
             ></input>
           </div>

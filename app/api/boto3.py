@@ -13,13 +13,11 @@ s3_client = boto3.client(
 boto3.set_stream_logger(name="s3_client", level=10)
 #bucket name : audio-shrub
 
-def upload_user_music(file_object, object_name):
-    print("="*30,Config.AWS_SECRET_ACCESS_KEY,Config.AWS_ACCESS_KEY_ID )
+def user_upload(file_object, object_name):
+
     try:
-        print(Config.AWS_SECRET_ACCESS_KEY,Config.AWS_ACCESS_KEY_ID )
-        response = s3_client.upload_fileobj(file_object, "audio-shrub", object_name)
+        response = s3_client.upload_fileobj(file_object, "audio-shrub", object_name, ExtraArgs={'ACL':'public-read'})
     except ClientError as e:
-        # logging.error(e)
-        print(e)
+        print("ClientError",e)
         return False
     return True

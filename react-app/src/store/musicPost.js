@@ -7,13 +7,9 @@ const uploadMusicPost = (musicPost) => ({
 });
 
 export const uploadMusic = (form) => async (dispatch) => {
-  for (let x of form) console.log(x);
+  // by removing header, the boundary will be set correctly(automatic).
   const res = await fetch("/api/upload/music", {
     method: "POST",
-    headers: {
-      "Content-Type":
-        "multipart/form-data; boundary=---------------------------a4bbcc4a-89f2-420b-b284-f02dfb8b5c60",
-    },
     body: form,
   });
   const musicPost = await res.json();
