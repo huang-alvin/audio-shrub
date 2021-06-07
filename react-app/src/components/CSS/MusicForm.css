@@ -1,6 +1,78 @@
 .music-form-wrapper {
-  width: 100%;
+  /* width: 100%; */
   width: 70%;
   margin-left: 15%;
   margin-right: 15%;
+}
+
+.music-form {
+  margin: auto;
+  width: 600px;
+  height: 600px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+}
+.music-input {
+  border-color: #ccc;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+  outline: none;
+  height: 35px;
+  margin: 10px;
+  width: 300px;
+  display: inline-block;
+}
+.music-form label {
+  width: 150px;
+  display: inline-block;
+  text-align: right;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+.description-input {
+  border-color: #ccc;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+  outline: none;
+  height: 60px;
+  margin: 10px;
+  width: 300px;
+  display: inline-block;
+}
+.description-div {
+  display: flex;
+  align-items: center;
+}
+.image-input,
+.song-input {
+  width: 315px;
+  height: 35px;
+  margin-left: 10px;
+  background: rgb(0, 161, 198);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.upload-btn {
+  width: 315px;
+  height: 35px;
+  margin-left: 160px;
+  background: rgb(0, 161, 198);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.image-div,
+.song-div {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
 }

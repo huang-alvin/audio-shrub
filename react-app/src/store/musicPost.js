@@ -7,18 +7,21 @@ const uploadMusicPost = (musicPost) => ({
 });
 
 export const uploadMusic = (form) => async (dispatch) => {
-  const res = fetch("/api/upload/music", {
+  for (let x of form) console.log(x);
+  const res = await fetch("/api/upload/music", {
     method: "POST",
     headers: {
-      // may be unnecessary
+      "Content-Type":
+        "multipart/form-data; boundary=---------------------------a4bbcc4a-89f2-420b-b284-f02dfb8b5c60",
     },
-    body: { form },
+    body: form,
   });
   const musicPost = await res.json();
   if (musicPost.errors) {
     return musicPost;
   }
-  dispatch(uploadMusicPost(musicPost));
+  console.log(musicPost);
+  //   dispatch(uploadMusicPost(musicPost));
 };
 
 const loadUserMusic = (musicPosts) => ({
@@ -27,7 +30,7 @@ const loadUserMusic = (musicPosts) => ({
 });
 
 export const loadMusic = (userId) => async (dispatch) => {
-  const res = fetch(`/api/users/${userId}/music`);
+  const res = await fetch(`/api/users/${userId}/music`);
   const musicPosts = await res.json();
   dispatch(loadUserMusic(musicPosts));
 };
