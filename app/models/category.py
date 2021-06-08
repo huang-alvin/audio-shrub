@@ -9,3 +9,10 @@ class Category(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
 
     music_posts = db.relationship("Music_Post", secondary=tags, back_populates="tags")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "type": self.type,
+            "user_id": self.user_id
+        }

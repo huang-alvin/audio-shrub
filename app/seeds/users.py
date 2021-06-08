@@ -30,10 +30,10 @@ def seed_users():
             email=faker.email(),
             password='password',
             image="https://images.squarespace-cdn.com/content/v1/59a40a844c0dbf71dd64a15a/1587578719041-H1BA35KFVCS76DOLTTQ9/ke17ZwdGBToddI8pDm48kLl76CqolYQpYCK1tQUkpCVZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzq3NVIIp6jYqnwxy-xF8aVXRy_AJKc5toB5m-gAPM7p7ivWsEabuWKGrHqsHOeNt4/image-asset.jpeg"),
-        User(username="DOMi & JD Beck",
+        User(username="CYNE",
             email=faker.email(),
             password='password',
-            image="https://musicfestnews.com/wp-content/uploads/2019/08/67921332_2574787059240046_2403628947708313600_o.jpg"),
+            image="https://s3.amazonaws.com/rapgenius/CYNE.jpg"),
         User(username="Louis Cole",
             email=faker.email(),
             password='password',
@@ -51,8 +51,8 @@ def seed_users():
         db.session.add(user)
 
     user_batch_2 = []
-    for x in range(0,50):
-        random_number = random.randint(0, user_image_list.len()-1)
+    for x in range(0,20):
+        random_number = random.randint(0, len(user_image_list)-1)
         new_user = User(username=faker.name_nonbinary(),
             email=faker.email(),
             password='password',

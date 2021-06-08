@@ -12,11 +12,11 @@ def seed_songs():
 
     for music_post in all_music_posts:
         num_songs = random.randint(3,8)
-        for x in num_songs:
+        for x in range(0,num_songs):
             num_words = random.randint(3,6)
             song_title = faker.words(nb=num_words)
             song = Song(
-                title="".join(song_title),
+                title=" ".join(song_title),
                 url = random.choice(song_list),
                 music_post_id=music_post.id)
             db.session.add(song)

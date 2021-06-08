@@ -10,22 +10,22 @@ def seed_merchandise():
 
     price_list = [0,5,10,15]
 
-    for user_id in range(1,60):
-        num_merchandise = random.randint(2,4)
+    for user_id in range(1,30):
+        num_merchandise = random.randint(2,5)
 
-        for x in num_merchandise:
+        for x in range(1,num_merchandise):
             num_words = random.randint(3,6)
             num_sentences = random.randint(2,4)
             title_words = faker.words(nb=num_words)
 
-            music_post = Merchandise(
+            merch = Merchandise(
                 user_id = user_id,
                 title = "".join(title_words),
                 description = faker.sentences(nb=num_sentences),
                 price= random.choice(price_list),
-                image= random.choice(music_post_image_list)
+                image= random.choice(merch_image_list)
             )
-        db.session.add()
+            db.session.add(merch)
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.
