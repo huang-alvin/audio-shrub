@@ -2,22 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { uploadMusic } from "../store/musicPost";
-import "./CSS/MusicForm.css";
+import "./CSS/MerchForm.css";
 
-const MusicForm = () => {
+const MerchForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [song, setSong] = useState(null);
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState(null);
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.session.user.id);
 
-  const updateSong = (e) => {
-    setSong(e.target.files);
-  };
   const updateImage = (e) => {
     setImage(e.target.files[0]);
   };
@@ -33,7 +29,6 @@ const MusicForm = () => {
   const uploadUserMusic = async (e) => {
     e.preventDefault();
 
-    let numSongs = 0;
     const form = new FormData();
     form.append("title", title);
     form.append("description", description);
@@ -41,12 +36,7 @@ const MusicForm = () => {
     form.append("image", image);
     form.append("user_id", userId);
 
-    for (let songFile of song) {
-      form.append(`song-${numSongs}`, songFile);
-      numSongs++;
-    }
-    form.append("num_songs", numSongs);
-    dispatch(uploadMusic(form));
+    dispatch(uploadMusic(form)); // refactor this. make store for it the whole 9 yards
   };
   useEffect(() => {
     const form = document.querySelector(".music-form");
@@ -58,7 +48,7 @@ const MusicForm = () => {
   return (
     <div className="music-form-wrapper">
       <div className="music-form-container">
-        <p className="login-title">Upload Music</p>
+        <p className="login-title">Upload Merch</p>
         <div className="login-divider" />
         <form
           className="music-form"
@@ -110,18 +100,6 @@ const MusicForm = () => {
               accept=".png,.jpeg"
             ></input>
           </div>
-          <div className="song-div">
-            <label className="song-label">Song: </label>
-            <input
-              type="file"
-              name="song"
-              className="song-input"
-              accept=".mp3,.mp4,.m4a"
-              multiple
-              onChange={updateSong}
-              required
-            ></input>
-          </div>
           <input type="hidden" value={userId} name="userId" />
           <input type="submit" value="upload" className="upload-btn"></input>
         </form>
@@ -129,4 +107,4 @@ const MusicForm = () => {
     </div>
   );
 };
-export default MusicForm;
+export default MerchForm;

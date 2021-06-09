@@ -8,18 +8,22 @@ import "./CSS/MusicPage.css";
 const MusicPage = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  let user_music_posts = null;
+  const [userMusicPosts, setUserMusicPosts] = useState([]);
 
-  useEffect(() => {
-    user_music_posts = dispatch(musicPostActions.fetchMusicPost(userId));
-  });
-  // dispatch call fetch all musicposts from this userId
-  // loop thru and render musicmerchtile
-  //  indiivudal url: users/:userId/music/:musicPostId
+  useEffect(async () => {
+    let musicPosts = await dispatch(
+      musicPostActions.fetchUserMusicPosts(userId)
+    );
+    setUserMusicPosts(musicPosts);
+  }, [dispatch]);
+
   return (
     <div className="music-content-wrapper">
       <div className="main-content-container">
-        <MusicMerchTile />
+        {userMusicPosts &&
+          userMusicPosts.map((musicPost) => {
+            return <MusicMerchTile musicPost={musicPost} key={musicPost.id} />;
+          })}
       </div>
       <div className="profile-container">profile component</div>
     </div>

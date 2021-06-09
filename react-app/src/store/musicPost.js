@@ -1,13 +1,15 @@
 const UPLOAD_MUSIC = "UPLOAD_MUSIC";
 const LOAD_USER_MUSIC = "LOAD_MUSIC";
-const FETCH_MUSIC_POSTS = "FETCH_MUSIC";
 
-export const fetchMusicPost = (userId) => async () => {
-  const res = await fetch(`/api/music-post/${userId}`);
+export const fetchUserMusicPosts = (userId) => async () => {
+  const res = await fetch(`/api/music-post/users/${userId}`);
   let result = await res.json();
-  // console.log(musicList);
-  console.log(result.musicPosts[0].description);
-  return result;
+  return result.musicPosts;
+};
+export const fetchSingleMusicPost = (musicPostId) => async () => {
+  const res = await fetch(`/api/music-post/${musicPostId}`);
+  let result = await res.json();
+  return result.musicPost;
 };
 const uploadMusicPost = (musicPost) => ({
   type: UPLOAD_MUSIC,

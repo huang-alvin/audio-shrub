@@ -14,7 +14,7 @@ class Music_Post(db.Model):
     image = db.Column(db.String(600), nullable=True)
 
     tags = db.relationship("Category", secondary=tags, back_populates="music_posts")
-    songs = db.relationship("Song", backref="music_post", lazy="select")
+    songs = db.relationship("Song", backref="music_post", lazy="dynamic")
 
     def to_dict(self):
         return{
