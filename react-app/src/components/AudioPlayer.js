@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ReactPlayer from "react-player";
-import ReactSlider from "react-slider";
-import ReactAudioPlayer from "react-audio-player";
 import { FaPlay, FaPause, FaFastForward, FaFastBackward } from "react-icons/fa";
 import * as audioPlayerActions from "../store/audioPlayer";
 import "./CSS/AudioPlayer.css";

@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import * as musicPostActions from "../store/musicPost";
 import AudioPlayer from "./AudioPlayer";
 import SongListing from "./SongListing";
-// import { FaPlay, FaPause } from "react-icons/fa";
 import * as audioPlayerActions from "../store/audioPlayer";
 import "./CSS/MusicPost.css";
 
@@ -16,8 +15,6 @@ const MusicPost = () => {
 
   const { musicPostId } = useParams();
   const [musicPost, setMusicPost] = useState({});
-  // const [trackList, setTrackList] = useState([]);
-  // const [currentTrack, setCurrentTrack] = useState(0);
 
   useEffect(() => {
     const FetchWrapper = async () => {
@@ -26,35 +23,11 @@ const MusicPost = () => {
       );
       setMusicPost(music_post);
       dispatch(audioPlayerActions.setTrackList(music_post.songs));
-      // setTrackList(music_post.songs);
     };
 
     FetchWrapper();
   }, [dispatch]);
 
-  // const handleSongListingPlayPause = (e) => {
-  //   e.preventDefault();
-  //   setCurrentTrack(e.currentTarget.value);
-  // };
-  //============== song list component
-
-  // const songListing = (song, idx) => {
-  //   return (
-  //     <div className="songListing-container" key={song.id} value={idx}>
-  //       <button
-  //         className="songListing-play-btn"
-  //         value={idx}
-  //         onClick={handleSongListingPlayPause}
-  //       >
-  //         <div value={idx}>
-  //           <FaPlay size="10px" />
-  //         </div>
-  //       </button>
-  //       <span className="songListing-title">{song.title}</span>
-  //     </div>
-  //   );
-  // };
-  // =============
   return (
     <div className="music-content-wrapper">
       <div className="main-content-container music-post">
@@ -69,14 +42,12 @@ const MusicPost = () => {
             <div>Buy Digital Album ${musicPost.price}</div>
           </div>
           <div className="songList-container">
-            {/* {trackList &&
-              trackList.map((song, index) => songListing(song, index))} */}
             {trackList &&
               trackList.map((song, index) => (
                 <SongListing song={song} index={index} />
               ))}
           </div>
-          {/* fix seed data for music post description. must be 1 big string. */}
+
           <div className="audio-details-2">{musicPost.description}</div>
         </div>
         <div className="cover-aux-container">
