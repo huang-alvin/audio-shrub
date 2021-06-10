@@ -41,7 +41,11 @@
 }
 .fast-foward-container {
   box-sizing: border-box;
-  padding-left: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.rewind-container {
+  cursor: pointer;
 }
 .songListing-title {
   display: inline-block;

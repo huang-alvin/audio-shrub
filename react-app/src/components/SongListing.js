@@ -10,7 +10,7 @@ const SongListing = ({ song, index }) => {
   const isPlay = useSelector((state) => state.audioPlayer.playState);
 
   useEffect(() => {
-    if (currentTrack === index && isPlay) {
+    if (parseInt(currentTrack) === parseInt(index) && isPlay) {
       setPlayIcon(true);
     } else {
       setPlayIcon(false);
@@ -19,7 +19,11 @@ const SongListing = ({ song, index }) => {
 
   const handleSongListingPlayPause = (e) => {
     e.preventDefault();
-    dispatch(audioPlayerActions.setCurrentTrack(e.currentTarget.value));
+    if (parseInt(currentTrack) === parseInt(index)) {
+      dispatch(audioPlayerActions.setPlayState(!isPlay));
+    } else {
+      dispatch(audioPlayerActions.setCurrentTrack(e.currentTarget.value));
+    }
   };
 
   return (
@@ -31,7 +35,6 @@ const SongListing = ({ song, index }) => {
       >
         <div value={index}>
           {playIcon ? <FaPause size="10px" /> : <FaPlay size="10px" />}
-          {/* <FaPlay size="10px" /> */}
         </div>
       </button>
       <span className="songListing-title">{song.title}</span>
