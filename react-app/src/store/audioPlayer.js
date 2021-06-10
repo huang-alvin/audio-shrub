@@ -17,6 +17,8 @@ const updateCurrTrack = (index) => ({
 });
 
 export const setCurrentTrack = (index) => (dispatch) => {
+  const audio = document.querySelector(".audio-player");
+  audio.pause();
   dispatch(updateCurrTrack(index));
 };
 

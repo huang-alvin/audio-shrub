@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, useRef } from "react";
 import { FaPlay, FaPause, FaFastForward, FaFastBackward } from "react-icons/fa";
-import * as audioPlayerActions from "../store/audioPlayer";
 import "./CSS/AudioPlayer.css";
 
-const AudioPlayer = ({ song }) => {
-  const dispatch = useDispatch();
-  const isPlay = useSelector((state) => state.audioPlayer.playState);
-  const trackList = useSelector((state) => state.audioPlayer.trackList);
-  const currentTrack = useSelector((state) => state.audioPlayer.currentTrack);
+const AudioPlayer = ({ song, trackList }) => {
+  const audioRef = useRef();
+
   //   const [isPlay, setIsPlay] = useState(false);
+  const [localIsPlay, setLocalIsPlay] = useState(false);
+  const [localCurrTrack, setLocalCurrTrack] = useState(0);
   const [duration, setDuration] = useState("");
   const [currentTime, setCurrentTime] = useState("0:00");
   const [track, setTrack] = useState(null);
   const [trackTitle, setTrackTitle] = useState("");
   const [trackUrl, setTrackUrl] = useState("");
+  const [source, setSource] = useState("");
+
+  const updateSong = (source) => {
+    setSource(source);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.load();
+      audioRef.current.play().catch();
+    }
+  };
 
   // auto play new track
   useEffect(() => {
@@ -22,69 +30,31 @@ const AudioPlayer = ({ song }) => {
     slider.defaultValue = 0;
 
     const autoPlayNewTrack = () => {
-      const audio = document.querySelector(".audio-player");
-      // audio.pause();
-      // audio.src = trackList[currentTrack].url;
-      // audio.load();
-      // audio
-      //   .play()
-      //   .then((res) => console.log("promise resolved", res))
-      //   .catch((e) => console.log(e, "promise failed"));
-      let playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then((res) => console.log("promise reslve"))
-          .catch((e) => console.log(e, "fail"));
-      }
+      updateSong(trackList[localCurrTrack].url);
     };
     autoPlayNewTrack();
-  }, [currentTrack]);
+  }, [localCurrTrack]);
 
-  //   set the value of slider to 0 for every new url loaded
-  // useEffect(() => {
-  //   const audio = document.querySelector(".audio-player");
-  //   const slider = document.querySelector(".audio-slider");
-  //   slider.defaultValue = 0;
-  //   audio.pause();
-  //   audio.load();
-  // }, [currentTrack]);
-
-  // const updatePlay = () => {
-  //   dispatch(audioPlayerActions.setPlayState(true));
-  // };
-  //   useEffect(() => {
-  //     const audio = document.querySelector(".audio-player");
-  //     const updatePlay = () => {
-  //       console.log("update play");
-  //       dispatch(audioPlayerActions.setPlayState(true));
-  //     };
-  //     audio.addEventListener("playing", updatePlay);
-  //     return () => audio.removeEventListener("playing", updatePlay);
-  //   }, []);
   useEffect(() => {
     setTrack(song);
-    setTrackTitle(song.title);
+    // setTrackTitle(trackList[localCurrTrack].title);
     setTrackUrl(song.url);
   });
 
   const playHandler = () => {
-    dispatch(audioPlayerActions.setPlayState(!isPlay));
-    // setIsPlay(!isPlay);
+    setLocalIsPlay(!localIsPlay);
   };
 
   // ==== PLAY HANDLER
   useEffect(() => {
-    const audio = document.querySelector(".audio-player");
-    if (isPlay) {
-      // audio.load();
-      audio
-        .play()
-        .then((res) => console.log(res))
-        .catch((e) => console.log(e));
-    } else {
-      audio.pause();
+    if (audioRef.current) {
+      if (localIsPlay) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
     }
-  }, [isPlay]);
+  }, [localIsPlay]);
 
   const convertTime = (durationSeconds) => {
     const minutes = Math.floor(durationSeconds / 60);
@@ -98,10 +68,10 @@ const AudioPlayer = ({ song }) => {
   useEffect(() => {
     const audio = document.querySelector(".audio-player");
     const slider = document.querySelector(".audio-slider");
-    slider.max = audio.duration;
+    slider.max = audioRef.current.duration;
 
     const durationSetter = () => {
-      let audioDuration = convertTime(audio.duration);
+      let audioDuration = convertTime(audioRef.current.duration);
       setDuration(audioDuration);
     };
 
@@ -112,81 +82,119 @@ const AudioPlayer = ({ song }) => {
     };
 
     const sliderUpdater = () => {
-      audio.currentTime = slider.value;
+      audioRef.current.currentTime = slider.value;
     };
 
     const trackOver = () => {
-      if (parseInt(currentTrack) === trackList.length - 1) {
-        dispatch(audioPlayerActions.setPlayState(false));
+      if (parseInt(localCurrTrack) === trackList.length - 1) {
+        console.log("last song done");
+        setLocalIsPlay(false);
       } else {
-        dispatch(
-          audioPlayerActions.setCurrentTrack(parseInt(currentTrack) + 1)
-        );
+        console.log("why did it reach here", typeof localCurrTrack);
+        setLocalCurrTrack(parseInt(localCurrTrack) + 1);
       }
     };
 
-    audio.addEventListener("ended", trackOver); // when implenting auto paly next track remove this
-    audio.addEventListener("loadedmetadata", durationSetter);
-    audio.addEventListener("timeupdate", timeUpdater);
+    audioRef.current.addEventListener("ended", trackOver);
+    audioRef.current.addEventListener("loadedmetadata", durationSetter);
+    audioRef.current.addEventListener("timeupdate", timeUpdater);
     slider.addEventListener("change", sliderUpdater);
 
     return function cleanUp() {
-      audio.removeEventListener("ended", trackOver); // remove this later with ^^
-      audio.removeEventListener("loadedmetadata", durationSetter);
-      audio.removeEventListener("timeupdate", timeUpdater);
-      slider.removeEventListener("change", sliderUpdater);
+      if (audioRef.current) {
+        audioRef.current.removeEventListener("ended", trackOver);
+        audioRef.current.removeEventListener("loadedmetadata", durationSetter);
+        audioRef.current.removeEventListener("timeupdate", timeUpdater);
+        slider.removeEventListener("change", sliderUpdater);
+      }
     };
   });
 
   // ====== handle next && back btn ====
 
   const backBtnHandler = () => {
-    if (parseInt(currentTrack) > 0) {
-      dispatch(audioPlayerActions.setCurrentTrack(parseInt(currentTrack) - 1));
+    if (parseInt(localCurrTrack) > 0) {
+      setLocalCurrTrack(localCurrTrack - 1);
     }
   };
   const nextBtnHandler = () => {
-    if (parseInt(currentTrack) < trackList.length - 1) {
-      dispatch(audioPlayerActions.setCurrentTrack(parseInt(currentTrack) + 1));
+    if (parseInt(localCurrTrack) < trackList.length - 1) {
+      setLocalCurrTrack(localCurrTrack + 1);
+      setLocalIsPlay(true);
     }
   };
-  return (
-    <div className="audio-player-container" key={trackTitle}>
-      <div className="play-btn-container">
-        <button className="play-btn" onClick={playHandler}>
-          {isPlay ? <FaPause size="45px" /> : <FaPlay size="45px" />}
+
+  // ====== SongListing component && handlers ========
+  const handleSongListingPlayPause = (e) => {
+    e.preventDefault();
+    let index = e.currentTarget.value;
+    if (parseInt(localCurrTrack) === parseInt(index)) {
+      setLocalIsPlay(!localIsPlay);
+    } else {
+      setLocalCurrTrack(parseInt(index));
+      setLocalIsPlay(true);
+    }
+  };
+  const songListing = (song, index) => {
+    return (
+      <div className="songListing-container" key={song.id} value={index}>
+        <button
+          className="songListing-play-btn"
+          value={index}
+          onClick={handleSongListingPlayPause}
+        >
+          <div value={index}>
+            {parseInt(localCurrTrack) === parseInt(index) && localIsPlay ? (
+              <FaPause size="10px" />
+            ) : (
+              <FaPlay size="10px" />
+            )}
+          </div>
         </button>
+        <span className="songListing-title">{song.title}</span>
       </div>
-      <div className="track-details">
-        <span className="track-title">{song.title}</span>
-        <span className="track-time">
-          {currentTime} / {duration}
-        </span>
+    );
+  };
+  return (
+    <>
+      <div className="audio-player-container" key={trackTitle}>
+        <div className="play-btn-container">
+          <button className="play-btn" onClick={playHandler}>
+            {localIsPlay ? <FaPause size="45px" /> : <FaPlay size="45px" />}
+          </button>
+        </div>
+        <div className="track-details">
+          <span className="track-title">{trackList[localCurrTrack].title}</span>
+          <span className="track-time">
+            {currentTime} / {duration}
+          </span>
+        </div>
+
+        <audio
+          src={trackList[localCurrTrack].url}
+          className="audio-player"
+          // preload="metadata"
+          preload="auto"
+          ref={audioRef}
+        >
+          <source src={source} type="audio/mpeg" />
+        </audio>
+        <div className="slider-container">
+          <input type="range" min={0} className="audio-slider" />
+        </div>
+        <div className="audio-btn-container">
+          <span className="rewind-container" onClick={backBtnHandler}>
+            <FaFastBackward />
+          </span>
+          <span className="fast-foward-container" onClick={nextBtnHandler}>
+            <FaFastForward />
+          </span>
+        </div>
       </div>
-      {/* {song.url} */}
-      <audio
-        src={trackList[currentTrack].url} // change of url breaks it in the middle of playing?
-        className="audio-player"
-        // preload="metadata"
-        preload="auto"
-      />
-      <div className="slider-container">
-        <input
-          type="range"
-          min={0}
-          className="audio-slider"
-          // onPlay={updatePlay}
-        />
+      <div className="songList-container">
+        {trackList && trackList.map((song, index) => songListing(song, index))}
       </div>
-      <div className="audio-btn-container">
-        <span className="rewind-container" onClick={backBtnHandler}>
-          <FaFastBackward />
-        </span>
-        <span className="fast-foward-container" onClick={nextBtnHandler}>
-          <FaFastForward />
-        </span>
-      </div>
-    </div>
+    </>
   );
 };
 export default AudioPlayer;
