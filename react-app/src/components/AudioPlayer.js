@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ReactPlayer from "react-player";
 import ReactSlider from "react-slider";
 import ReactAudioPlayer from "react-audio-player";
 import { FaPlay, FaPause, FaFastForward, FaFastBackward } from "react-icons/fa";
+import * as audioPlayerActions from "../store/audioPlayer";
 import "./CSS/AudioPlayer.css";
 
 const AudioPlayer = ({ song }) => {
-  const [isPlay, setIsPlay] = useState(false);
+  const dispatch = useDispatch();
+  const isPlay = useSelector((state) => state.audioPlayer.playState);
+  const trackList = useSelector((state) => state.audioPlayer.trackList);
+  const currentTrack = useSelector((state) => state.audioPlayer.currentTrack);
+  //   const [isPlay, setIsPlay] = useState(false);
   const [duration, setDuration] = useState("");
   const [currentTime, setCurrentTime] = useState("0:00");
   const [track, setTrack] = useState(null);
@@ -14,19 +20,47 @@ const AudioPlayer = ({ song }) => {
   const [trackUrl, setTrackUrl] = useState("");
 
   useEffect(() => {
+    // auto play new track
+    const autoPlayNewTrack = () => {
+      const audio = document.querySelector(".audio-player");
+
+      audio.load();
+      audio
+        .play()
+        .then((res) => console.log("lll", res))
+        .catch((e) => console.log(e, "hi"));
+    };
+    autoPlayNewTrack();
+  }, [currentTrack]);
+  const updatePlay = () => {
+    console.log("update play");
+    dispatch(audioPlayerActions.setPlayState(true));
+  };
+  //   useEffect(() => {
+  //     const audio = document.querySelector(".audio-player");
+  //     const updatePlay = () => {
+  //       console.log("update play");
+  //       dispatch(audioPlayerActions.setPlayState(true));
+  //     };
+  //     audio.addEventListener("playing", updatePlay);
+  //     return () => audio.removeEventListener("playing", updatePlay);
+  //   }, []);
+  useEffect(() => {
     setTrack(song);
     setTrackTitle(song.title);
     setTrackUrl(song.url);
   });
 
   const playHandler = () => {
-    setIsPlay(!isPlay);
+    // console.log(isPlay);
+    dispatch(audioPlayerActions.setPlayState(!isPlay));
+    // setIsPlay(!isPlay);
   };
 
-  useEffect(() => {
-    // as of right now, no auto play. thus need to reset play btn on re-render
-    setIsPlay(false);
-  }, [track]);
+  //   useEffect(() => {
+  //     // as of right now, no auto play. thus need to reset play btn on re-render
+  //     setIsPlay(false);
+  //   }, [track]);
 
   useEffect(() => {
     const audio = document.querySelector(".audio-player");
@@ -77,7 +111,8 @@ const AudioPlayer = ({ song }) => {
 
     if (audio.ended) {
       // this should be removed later to auto play the next track
-      setIsPlay(false);
+      //   setIsPlay(false);
+      dispatch(audioPlayerActions.setPlayState(false));
     }
     return function cleanUp() {
       audio.removeEventListener("loadedmetadata", durationSetter);
@@ -88,12 +123,8 @@ const AudioPlayer = ({ song }) => {
   return (
     <div className="audio-player-container" key={trackTitle}>
       <div className="play-btn-container">
-        <button className="play-btn">
-          {isPlay ? (
-            <FaPause onClick={playHandler} size="45px" />
-          ) : (
-            <FaPlay onClick={playHandler} size="45px" />
-          )}
+        <button className="play-btn" onClick={playHandler}>
+          {isPlay ? <FaPause size="45px" /> : <FaPlay size="45px" />}
         </button>
       </div>
       <div className="track-details">
@@ -102,9 +133,19 @@ const AudioPlayer = ({ song }) => {
           {currentTime} / {duration}
         </span>
       </div>
-      <audio src={song.url} className="audio-player" preload="metadata" />
+      {/* {song.url} */}
+      <audio
+        src={trackList[currentTrack].url} // change of url breaks it in the middle of playing.
+        className="audio-player"
+        preload="metadata"
+      />
       <div className="slider-container">
-        <input type="range" min={0} className="audio-slider" />
+        <input
+          type="range"
+          min={0}
+          className="audio-slider"
+          onPlay={updatePlay}
+        />
       </div>
       <div className="audio-btn-container">
         <span className="rewind-container">
