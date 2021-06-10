@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as musicPostActions from "../store/musicPost";
 import AudioPlayer from "./AudioPlayer";
-import SongListing from "./SongListing";
 import * as audioPlayerActions from "../store/audioPlayer";
 import "./CSS/MusicPost.css";
 
@@ -34,20 +33,18 @@ const MusicPost = () => {
         <div className="audio-content">
           <div className="post-title">{musicPost.title}</div>
           <div className="audio-container">
-            {trackList.length && <AudioPlayer song={trackList[currentTrack]} />}
+            {trackList.length && (
+              <AudioPlayer
+                song={trackList[currentTrack]}
+                trackList={trackList}
+              />
+            )}
           </div>
           <div className="audio-details-1">
             <div>Digital Album</div>
             <div>Streaming only</div>
             <div>Buy Digital Album ${musicPost.price}</div>
           </div>
-          <div className="songList-container">
-            {trackList &&
-              trackList.map((song, index) => (
-                <SongListing song={song} index={index} />
-              ))}
-          </div>
-
           <div className="audio-details-2">{musicPost.description}</div>
         </div>
         <div className="cover-aux-container">

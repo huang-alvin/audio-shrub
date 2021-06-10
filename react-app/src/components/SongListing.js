@@ -17,6 +17,7 @@ const SongListing = ({ song, index }) => {
     }
   }, [currentTrack, isPlay]);
 
+  // audio.load(); before setting track
   const handleSongListingPlayPause = (e) => {
     e.preventDefault();
     if (parseInt(currentTrack) === parseInt(index)) {
