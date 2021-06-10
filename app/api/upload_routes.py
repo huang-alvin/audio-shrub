@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from werkzeug.exceptions import BadRequestKeyError
-from ..models import db, Music_Post, Song
+from ..models import db, Music_Post, Song, Merchandise
 
 # ====== BOTO3 imports ===============
 from .boto3 import user_upload, s3_client
@@ -58,6 +58,7 @@ def upload_music_post():
             db.session.add(song)
             db.session.flush()
 
+            # don't forget to upload the image from the form as well
             upload_success = user_upload(form_song, f"song/{song.id}")
             if upload_success:
                 song.url = f"https://audio-shrub.s3.amazonaws.com/song/{song.id}"
@@ -77,3 +78,21 @@ def upload_music_post():
     except Exception as e:
         print(e)
         return {"fial":'fail'}
+
+@upload_routes.route('/merch', methods=['POST'])
+def upload_merch_post():
+    form = request.form
+
+    # validate field data before instatiation of merch
+    # validate image. file type & size
+
+    merch_post = Merchandise(
+        user_id=form["user_id"],
+        title=form["title"],
+        description=form["description"],
+        price=form["price"]
+        )
+    db.session.add(music_post)
+    db.session.commit() # can do flush then commit after image upload
+
+    upload_success = user_upload(request.files['image'], f"/merch/images/{merch_post.id}")

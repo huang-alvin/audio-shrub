@@ -13,6 +13,7 @@ import MusicForm from "./components/MusicForm";
 import MusicPage from "./components/MusicPage";
 import MusicPost from "./components/MusicPost";
 import MerchForm from "./components/MerchForm";
+import MerchPage from "./components/MerchPage";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -49,6 +50,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId/music">
           <MusicPage />
+        </ProtectedRoute>
+        <ProtectedRoute path="/users/:userId/merch">
+          <MerchPage />
         </ProtectedRoute>
         <ProtectedRoute
           path="/users/:userId/music-post/:musicPostId"

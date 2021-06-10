@@ -16,23 +16,42 @@ const AudioPlayer = ({ song }) => {
   const [trackTitle, setTrackTitle] = useState("");
   const [trackUrl, setTrackUrl] = useState("");
 
+  // auto play new track
   useEffect(() => {
-    // auto play new track
+    const slider = document.querySelector(".audio-slider");
+    slider.defaultValue = 0;
+
     const autoPlayNewTrack = () => {
       const audio = document.querySelector(".audio-player");
-
-      audio.load();
-      audio
-        .play()
-        .then((res) => console.log("lll", res))
-        .catch((e) => console.log(e, "hi"));
+      // audio.pause();
+      // audio.src = trackList[currentTrack].url;
+      // audio.load();
+      // audio
+      //   .play()
+      //   .then((res) => console.log("promise resolved", res))
+      //   .catch((e) => console.log(e, "promise failed"));
+      let playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then((res) => console.log("promise reslve"))
+          .catch((e) => console.log(e, "fail"));
+      }
     };
     autoPlayNewTrack();
   }, [currentTrack]);
-  const updatePlay = () => {
-    console.log("update play");
-    dispatch(audioPlayerActions.setPlayState(true));
-  };
+
+  //   set the value of slider to 0 for every new url loaded
+  // useEffect(() => {
+  //   const audio = document.querySelector(".audio-player");
+  //   const slider = document.querySelector(".audio-slider");
+  //   slider.defaultValue = 0;
+  //   audio.pause();
+  //   audio.load();
+  // }, [currentTrack]);
+
+  // const updatePlay = () => {
+  //   dispatch(audioPlayerActions.setPlayState(true));
+  // };
   //   useEffect(() => {
   //     const audio = document.querySelector(".audio-player");
   //     const updatePlay = () => {
@@ -49,20 +68,19 @@ const AudioPlayer = ({ song }) => {
   });
 
   const playHandler = () => {
-    // console.log(isPlay);
     dispatch(audioPlayerActions.setPlayState(!isPlay));
     // setIsPlay(!isPlay);
   };
 
-  //   useEffect(() => {
-  //     // as of right now, no auto play. thus need to reset play btn on re-render
-  //     setIsPlay(false);
-  //   }, [track]);
-
+  // ==== PLAY HANDLER
   useEffect(() => {
     const audio = document.querySelector(".audio-player");
     if (isPlay) {
-      audio.play();
+      // audio.load();
+      audio
+        .play()
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
     } else {
       audio.pause();
     }
@@ -76,12 +94,7 @@ const AudioPlayer = ({ song }) => {
     return `${minutes}:${secondsFinal}`;
   };
 
-  //   set the value of slider to 0 for initial render
-  useEffect(() => {
-    const slider = document.querySelector(".audio-slider");
-    slider.defaultValue = 0;
-  });
-
+  // active slider handler && when track ends
   useEffect(() => {
     const audio = document.querySelector(".audio-player");
     const slider = document.querySelector(".audio-slider");
@@ -102,21 +115,41 @@ const AudioPlayer = ({ song }) => {
       audio.currentTime = slider.value;
     };
 
+    const trackOver = () => {
+      if (parseInt(currentTrack) === trackList.length - 1) {
+        dispatch(audioPlayerActions.setPlayState(false));
+      } else {
+        dispatch(
+          audioPlayerActions.setCurrentTrack(parseInt(currentTrack) + 1)
+        );
+      }
+    };
+
+    audio.addEventListener("ended", trackOver); // when implenting auto paly next track remove this
     audio.addEventListener("loadedmetadata", durationSetter);
     audio.addEventListener("timeupdate", timeUpdater);
     slider.addEventListener("change", sliderUpdater);
 
-    if (audio.ended) {
-      // this should be removed later to auto play the next track
-      //   setIsPlay(false);
-      dispatch(audioPlayerActions.setPlayState(false));
-    }
     return function cleanUp() {
+      audio.removeEventListener("ended", trackOver); // remove this later with ^^
       audio.removeEventListener("loadedmetadata", durationSetter);
       audio.removeEventListener("timeupdate", timeUpdater);
       slider.removeEventListener("change", sliderUpdater);
     };
   });
+
+  // ====== handle next && back btn ====
+
+  const backBtnHandler = () => {
+    if (parseInt(currentTrack) > 0) {
+      dispatch(audioPlayerActions.setCurrentTrack(parseInt(currentTrack) - 1));
+    }
+  };
+  const nextBtnHandler = () => {
+    if (parseInt(currentTrack) < trackList.length - 1) {
+      dispatch(audioPlayerActions.setCurrentTrack(parseInt(currentTrack) + 1));
+    }
+  };
   return (
     <div className="audio-player-container" key={trackTitle}>
       <div className="play-btn-container">
@@ -132,23 +165,24 @@ const AudioPlayer = ({ song }) => {
       </div>
       {/* {song.url} */}
       <audio
-        src={trackList[currentTrack].url} // change of url breaks it in the middle of playing.
+        src={trackList[currentTrack].url} // change of url breaks it in the middle of playing?
         className="audio-player"
-        preload="metadata"
+        // preload="metadata"
+        preload="auto"
       />
       <div className="slider-container">
         <input
           type="range"
           min={0}
           className="audio-slider"
-          onPlay={updatePlay}
+          // onPlay={updatePlay}
         />
       </div>
       <div className="audio-btn-container">
-        <span className="rewind-container">
+        <span className="rewind-container" onClick={backBtnHandler}>
           <FaFastBackward />
         </span>
-        <span className="fast-foward-container">
+        <span className="fast-foward-container" onClick={nextBtnHandler}>
           <FaFastForward />
         </span>
       </div>

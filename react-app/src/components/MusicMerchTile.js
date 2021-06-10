@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./CSS/MusicMerchTile.css";
 
-const MusicMerchTile = ({ musicPost }) => {
+const MusicMerchTile = ({ post }) => {
   return (
-    <Link to={`/users/${musicPost.user_id}/music-post/${musicPost.id}`}>
+    <Link to={`/users/${post.user_id}/music-post/${post.id}`}>
       <div className="music-merch-tile-container">
         <div className="music-merch-image-container">
-          <img src={musicPost.image} className="music-merch-image" />
+          <img src={post.image} className="music-merch-image" />
         </div>
-        <div className="music-merch-title">{musicPost.title}</div>
+        <div className="music-merch-title">{post.title}</div>
       </div>
     </Link>
   );

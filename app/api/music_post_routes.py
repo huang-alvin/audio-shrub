@@ -6,7 +6,7 @@ music_post_routes = Blueprint('music_post', __name__)
 @music_post_routes.route('/users/<int:userId>')
 def get_user_music_posts(userId):
     music_posts_query = Music_Post.query.filter(Music_Post.user_id == userId).all()
-    print(music_posts_query,"="*50)
+    # print(music_posts_query,"="*50)
     music_list = []
     for music_post in music_posts_query:
         song_list = []
