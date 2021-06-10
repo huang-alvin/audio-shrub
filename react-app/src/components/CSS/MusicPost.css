@@ -1,0 +1,30 @@
+.main-content-container.music-post {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "audio cover-aux";
+}
+.post-title {
+  font-size: 28px;
+  box-sizing: border-box;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+.post-image-container {
+  height: 400px;
+  width: 400px;
+  object-fit: cover;
+  box-sizing: border-box;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+.post-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.post-additional-info {
+  margin-left: 5%;
+}
+.post-collections {
+  margin-right: 7%;
+}

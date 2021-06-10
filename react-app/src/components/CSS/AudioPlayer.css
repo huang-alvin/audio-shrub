@@ -1,0 +1,53 @@
+.audio-player-container {
+  grid-template-areas:
+    "play title title"
+    "play slider btn";
+  display: grid;
+  height: 70px;
+  width: 100%;
+  grid-template-columns: 18% 68% 14%;
+}
+.play-btn-container {
+  grid-area: play;
+}
+.audio-btn-container {
+  grid-area: btn;
+}
+.slider-container {
+  grid-area: slider;
+  display: flex;
+  width: 100%;
+}
+.play-btn {
+  width: 90%;
+  height: 90%;
+}
+.track-details {
+  grid-area: title;
+  display: flex;
+  align-items: center;
+}
+.audio-btn-container {
+  grid-area: btn;
+  display: flex;
+  align-items: center;
+}
+.track-time {
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+.audio-slider {
+  width: 95%;
+}
+.fast-foward-container {
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+.songListing-title {
+  display: inline-block;
+  padding-left: 10px;
+}
+.songListing-container {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}

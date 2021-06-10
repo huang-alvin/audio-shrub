@@ -8,4 +8,4 @@ class Merchandise(db.Model):
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
     price = db.Column(db.Integer, nullable=False)
-    image = db.Column(db.String, nullable=True)
+    image = db.Column(db.String(600), nullable=True)

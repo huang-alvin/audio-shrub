@@ -1,0 +1,23 @@
+.music-merch-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.music-merch-image-container {
+  height: 175px;
+  width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+.music-merch-tile-container {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+}
+.music-merch-title {
+  padding-top: 6px;
+}
+.music-merch-image-container:hover {
+  box-shadow: 10px 5px 5px gray;
+}

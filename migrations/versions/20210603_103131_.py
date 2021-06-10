@@ -32,7 +32,7 @@ def upgrade():
     sa.Column('title', sa.String(length=255), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('price', sa.Integer(), nullable=False),
-    sa.Column('image', sa.String(), nullable=True),
+    sa.Column('image', sa.String(length=600), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -42,14 +42,14 @@ def upgrade():
     sa.Column('title', sa.String(length=255), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('price', sa.Integer(), nullable=False),
-    sa.Column('image', sa.String(), nullable=True),
+    sa.Column('image', sa.String(length=600), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('songs',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=255), nullable=False),
-    sa.Column('url', sa.String(length=255), nullable=False),
+    sa.Column('url', sa.String(length=600), nullable=False),
     sa.Column('music_post_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['music_post_id'], ['music_posts.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -70,7 +70,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.add_column('users', sa.Column('image', sa.String(length=255), nullable=True))
+    op.add_column('users', sa.Column('image', sa.String(length=600), nullable=True))
     # ### end Alembic commands ###
 
 

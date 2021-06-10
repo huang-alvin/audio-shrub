@@ -2,13 +2,22 @@
   width: 70%;
   margin-left: 15%;
   margin-right: 15%;
-  background-color: aqua;
-  height: 150px;
+  background-color: lightgray;
+  /* height: 150px; */
   display: grid;
   grid-template-areas: "main-content profile";
   grid-template-columns: 80% 20%;
+  min-height: 700px;
+  box-sizing: border-box;
+  padding-left: 2%;
 }
 .profile-container {
   grid-area: profile;
   background-color: blanchedalmond;
+}
+.main-content-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: 230px;
 }
