@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { uploadMusic } from "../store/musicPost";
+import { uploadMerch } from "../store/merchPost";
 import "./CSS/MerchForm.css";
 
 const MerchForm = () => {
@@ -36,7 +36,7 @@ const MerchForm = () => {
     form.append("image", image);
     form.append("user_id", userId);
 
-    dispatch(uploadMusic(form)); // refactor this. make store for it the whole 9 yards
+    dispatch(uploadMerch(form)); // refactor this. make store for it the whole 9 yards
   };
   useEffect(() => {
     const form = document.querySelector(".music-form");

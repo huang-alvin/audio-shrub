@@ -10,6 +10,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.upload_routes import upload_routes
 from .api.music_post_routes import music_post_routes
+from .api.merch_post_routes import merch_post_routes
 
 from .seeds import seed_commands
 
@@ -35,6 +36,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(upload_routes, url_prefix='/api/upload')
 app.register_blueprint(music_post_routes, url_prefix='/api/music-post')
+app.register_blueprint(merch_post_routes, url_prefix='/api/merch-post')
 db.init_app(app)
 Migrate(app, db)
 

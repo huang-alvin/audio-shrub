@@ -23,7 +23,11 @@ const MyPage = () => {
             music{" "}
           </NavLink>
         </span>
-        <span className="merch-tab tab">merch</span>
+        <span className="merch-tab tab">
+          <NavLink to={`/users/${userId}/merch`} activeClassName="active-tab">
+            merch{" "}
+          </NavLink>
+        </span>
         <span className="community-tab tab">community</span>
         {isOwner && (
           <span className="upload-music-tab tab">
