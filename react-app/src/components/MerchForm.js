@@ -9,7 +9,8 @@ const MerchForm = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState([]);
+  const [errorExist, setErrorExist] = useState(null);
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.session.user.id);
@@ -26,17 +27,24 @@ const MerchForm = () => {
   const updatePrice = (e) => {
     setPrice(e.target.value);
   };
-  const uploadUserMusic = async (e) => {
+  const uploadUserMusic = (e) => {
     e.preventDefault();
+    const uploadPost = async () => {
+      const form = new FormData();
+      form.append("title", title);
+      form.append("description", description);
+      form.append("price", price);
+      form.append("image", image);
+      form.append("user_id", userId);
 
-    const form = new FormData();
-    form.append("title", title);
-    form.append("description", description);
-    form.append("price", price);
-    form.append("image", image);
-    form.append("user_id", userId);
-
-    dispatch(uploadMerch(form)); // refactor this. make store for it the whole 9 yards
+      const res = await dispatch(uploadMerch(form));
+      console.log(res.errors);
+      if (res.errors) {
+        setErrors([...res.errors]);
+        setErrorExist(true);
+      }
+    };
+    uploadPost();
   };
   useEffect(() => {
     const form = document.querySelector(".music-form");
@@ -44,7 +52,15 @@ const MerchForm = () => {
     // form.addEventListener("submit", (e) => e.preventDefault());
     // return form.removeEventListener("submit", func);
   });
-  //   worry about csurf later
+
+  const errorComponent = (err) => {
+    return (
+      <div key={err} className="err-div">
+        {err}
+      </div>
+    );
+  };
+  const errExist = errors.length > 0;
   return (
     <div className="music-form-wrapper">
       <div className="music-form-container">
@@ -57,6 +73,12 @@ const MerchForm = () => {
           action={`/api/upload/music`}
           method="post"
         >
+          <div className="error-container">
+            {errors &&
+              errors.map((err) => {
+                return errorComponent(err);
+              })}
+          </div>
           <div>
             <label className="title-label">Title</label>
             <input
@@ -97,7 +119,7 @@ const MerchForm = () => {
               name="image"
               onChange={updateImage}
               className="image-input"
-              accept=".png,.jpeg"
+              accept=".png,.jpeg,.jpg"
             ></input>
           </div>
           <input type="hidden" value={userId} name="userId" />

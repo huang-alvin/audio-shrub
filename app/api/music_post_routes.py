@@ -38,4 +38,3 @@ def get_single_music_post(musicPostId):
     music_post["categories"] = category_list
 
     return {"musicPost":music_post}
-    return {"temp":"temp"}
