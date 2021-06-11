@@ -87,10 +87,8 @@ const AudioPlayer = ({ song, trackList }) => {
 
     const trackOver = () => {
       if (parseInt(localCurrTrack) === trackList.length - 1) {
-        console.log("last song done");
         setLocalIsPlay(false);
       } else {
-        console.log("why did it reach here", typeof localCurrTrack);
         setLocalCurrTrack(parseInt(localCurrTrack) + 1);
       }
     };

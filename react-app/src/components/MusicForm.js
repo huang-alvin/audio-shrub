@@ -16,6 +16,10 @@ const MusicForm = () => {
   const userId = useSelector((state) => state.session.user.id);
 
   const updateSong = (e) => {
+    let songList = [];
+    for (let song of e.target.files) {
+      songList.push(song);
+    }
     setSong(e.target.files);
   };
   const updateImage = (e) => {
@@ -40,12 +44,14 @@ const MusicForm = () => {
     form.append("price", price);
     form.append("image", image);
     form.append("user_id", userId);
+    console.log(song);
+    form.append("song", song);
+    // form.append("num_songs", numSongs);
 
-    for (let songFile of song) {
-      form.append(`song-${numSongs}`, songFile);
-      numSongs++;
-    }
-    form.append("num_songs", numSongs);
+    // for (let songFile of song) {
+    //   form.append(`song-${numSongs}`, songFile);
+    //   numSongs++;
+    // }
     dispatch(uploadMusic(form));
   };
   useEffect(() => {
@@ -116,7 +122,7 @@ const MusicForm = () => {
               type="file"
               name="song"
               className="song-input"
-              accept=".mp3,.mp4,.m4a"
+              accept=".mp3,.mp4,.m4a,MP4,.WAV"
               multiple
               onChange={updateSong}
               required

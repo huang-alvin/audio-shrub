@@ -15,6 +15,7 @@ boto3.set_stream_logger(name="s3_client", level=10)
 
 def user_upload(file_object, object_name):
 
+
     try:
         response = s3_client.upload_fileobj(file_object, "audio-shrub", object_name, ExtraArgs={'ACL':'public-read'})
     except ClientError as e:

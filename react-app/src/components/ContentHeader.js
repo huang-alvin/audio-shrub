@@ -28,7 +28,7 @@ const MyPage = () => {
             merch{" "}
           </NavLink>
         </span>
-        <span className="community-tab tab">community</span>
+        {/* <span className="community-tab tab">community</span> */}
         {isOwner && (
           <span className="upload-music-tab tab">
             <NavLink
