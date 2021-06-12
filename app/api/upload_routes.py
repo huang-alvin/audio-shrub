@@ -41,7 +41,9 @@ def upload_music_post():
         form = request.form
         musicForm = MusicForm()
         # num_songs = form["num_songs"]
-
+        musicForm['csrf_token'].data = request.cookies['csrf_token']
+        # if form.validate_on_submit:
+        #     print('valdited')
         # music_post = Music_Post(
         #     user_id=form["user_id"],
         #     title=form["title"],
@@ -54,22 +56,23 @@ def upload_music_post():
         # print(form["song"].data[0],'++++++++')
         # for song in form["song"].data[0]:
         #     print(song)
-        # print(request.files['song'])
-        print(request.form)
-        print(request.data)
-        print(request.files)
-        print(request.files.getlist('song'))
-        # print(form["title"])
+        # print(request.files)
+        # print(musicForm['song'].data)
+        # # print(request.files['song']) #  BAD KEY REQUEST
         # print(form["song"])
         # for f in form['song']:
-        #     print
-
+        #     print(f)
+        # print(request.files['song'])
+        print(request.files['song'])
+        # print(request.files["song-0"])
         # for x in range(0,int(num_songs)):
         #     form_song = request.files[f"song-{x}"]
-        #     song = Song(
-        #         title=form_song.filename,
-        #         music_post_id=music_post.id,
-        #     )
+        #     form_song.filename.rsplit(".")[0]
+        #     print(form_song)
+            # song = Song(
+            #     title=form_song.filename,
+            #     music_post_id=music_post.id,
+            # )
         #     db.session.add(song)
         #     db.session.flush()
 

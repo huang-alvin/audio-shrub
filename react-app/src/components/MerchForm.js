@@ -38,7 +38,7 @@ const MerchForm = () => {
       form.append("user_id", userId);
 
       const res = await dispatch(uploadMerch(form));
-      console.log(res.errors);
+      // console.log(res.errors);
       if (res.errors) {
         setErrors([...res.errors]);
         setErrorExist(true);

@@ -11,5 +11,5 @@ class MusicForm(FlaskForm):
     title = StringField('title', validators=[DataRequired()])
     description = TextAreaField('description', validators=[DataRequired()])
     price = IntegerField('price', validators=[DataRequired(), NumberRange(min=0)])
-    image = FileField('image', validators=[DataRequired(), FileRequired(), FileAllowed(ALLOWED_EXTENSIONS_IMAGE)])
-    song = MultipleFileField('song', validators=[DataRequired(), FileRequired(), FileAllowed(ALLOWED_EXTENSIONS_AUDIO)])
+    image = FileField('image', validators=[FileRequired(), FileAllowed(ALLOWED_EXTENSIONS_IMAGE)])
+    song0 = FileField('song', render_kw={"multiple":True} ,validators=[FileRequired(), FileAllowed(ALLOWED_EXTENSIONS_AUDIO)])

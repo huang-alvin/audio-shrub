@@ -16,10 +16,8 @@ const MusicForm = () => {
   const userId = useSelector((state) => state.session.user.id);
 
   const updateSong = (e) => {
-    let songList = [];
-    for (let song of e.target.files) {
-      songList.push(song);
-    }
+    console.log(e.target.files, "===");
+
     setSong(e.target.files);
   };
   const updateImage = (e) => {

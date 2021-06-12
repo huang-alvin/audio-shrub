@@ -29,7 +29,7 @@ def seed_users():
         User(username="Nahre Sol",
             email=faker.email(),
             password='password',
-            image="https://images.squarespace-cdn.com/content/v1/59a40a844c0dbf71dd64a15a/1587578719041-H1BA35KFVCS76DOLTTQ9/ke17ZwdGBToddI8pDm48kLl76CqolYQpYCK1tQUkpCVZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzq3NVIIp6jYqnwxy-xF8aVXRy_AJKc5toB5m-gAPM7p7ivWsEabuWKGrHqsHOeNt4/image-asset.jpeg"),
+            image="https://img.apmcdn.org/d953308f615231605117aed502402b73dba84e46/normal/0b254a-20190801-nahre-sol-bw.jpg"),
         User(username="CYNE",
             email=faker.email(),
             password='password',
