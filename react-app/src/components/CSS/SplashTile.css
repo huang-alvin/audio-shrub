@@ -1,0 +1,24 @@
+.splash-tile-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.splash-tile-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+.splash-image-container {
+}
+.splash-image {
+  width: 100%;
+}
+.splash-tile {
+  height: 100%;
+  max-width: 225px;
+  background-color: white;
+}
+.splash-title {
+  padding-top: 3%;
+  padding-left: 15px;
+}

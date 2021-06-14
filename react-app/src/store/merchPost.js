@@ -23,10 +23,7 @@ export const uploadMerch = (form) => async (dispatch) => {
     body: form,
   });
   const merchPost = await res.json();
-  if (merchPost.errors) {
-    return merchPost;
-  }
-  // console.log(merchPost); check for errors
+  return merchPost;
   //   dispatch(uploadMerchPost(merchPost));
 };
 

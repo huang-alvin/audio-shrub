@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { uploadMusic } from "../store/musicPost";
 import "./CSS/MusicForm.css";
 
 const MusicForm = () => {
+  let history = useHistory();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [song, setSong] = useState(null);
+  const [price, setPrice] = useState(0);
+  const [song, setSong] = useState([]);
   const [image, setImage] = useState(null);
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState([]);
+  const [isUpload, setIsUpload] = useState(false);
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.session.user.id);
 
   const updateSong = (e) => {
-    console.log(e.target.files, "===");
+    // console.log(e.target.files, "===");
 
     setSong(e.target.files);
   };
@@ -42,23 +45,36 @@ const MusicForm = () => {
     form.append("price", price);
     form.append("image", image);
     form.append("user_id", userId);
-    console.log(song);
-    form.append("song", song);
-    // form.append("num_songs", numSongs);
+    // console.log(song);
+    // form.append("song", song);
 
-    // for (let songFile of song) {
-    //   form.append(`song-${numSongs}`, songFile);
-    //   numSongs++;
-    // }
-    dispatch(uploadMusic(form));
+    for (let songFile of song) {
+      form.append(`song-${numSongs}`, songFile);
+      numSongs++;
+    }
+
+    form.append("num_songs", numSongs);
+
+    setErrors([]);
+    setIsUpload(true);
+    let res = await dispatch(uploadMusic(form));
+
+    if (res.errors) {
+      setIsUpload(false);
+      setErrors([...res.errors]);
+    } else {
+      history.push(`/users/${userId}/music-post/${res.id}`);
+    }
   };
-  useEffect(() => {
-    const form = document.querySelector(".music-form");
-    // const func = (e) => e.preventDefault();
-    // form.addEventListener("submit", (e) => e.preventDefault());
-    // return form.removeEventListener("submit", func);
-  });
-  //   worry about csurf later
+
+  const errorComponent = (err) => {
+    return (
+      <div key={err} className="err-div">
+        {err}
+      </div>
+    );
+  };
+
   return (
     <div className="music-form-wrapper">
       <div className="music-form-container">
@@ -68,9 +84,18 @@ const MusicForm = () => {
           className="music-form"
           onSubmit={uploadUserMusic}
           //   enctype="multipart/form-data"
-          action={`/api/upload/music`}
+          // action={`/api/upload/music`}
           method="post"
         >
+          <div className="upload-status-container">
+            {isUpload && <div>Please wait while files upload . . .</div>}
+          </div>
+          <div className="error-container">
+            {errors &&
+              errors.map((err) => {
+                return errorComponent(err);
+              })}
+          </div>
           <div>
             <label className="title-label">Title</label>
             <input
@@ -79,7 +104,7 @@ const MusicForm = () => {
               onChange={updateTitle}
               value={title}
               className="title-input music-input"
-              //   required
+              required
             ></input>
           </div>
           <div className="description-div">
@@ -89,7 +114,7 @@ const MusicForm = () => {
               onChange={updateDescription}
               value={description}
               className="description-input"
-              //   required
+              required
             ></textarea>
           </div>
           <div>
@@ -100,22 +125,24 @@ const MusicForm = () => {
               onChange={updatePrice}
               value={price}
               className="price-input music-input"
-              //   required
+              required
               min="0"
             ></input>
+            <div className="price-detail">US Dollars</div>
           </div>
           <div className="image-div">
-            <label className="image-label">Image:</label>
+            <label className="image-label">Image</label>
             <input
               type="file"
               name="image"
               onChange={updateImage}
               className="image-input"
-              accept=".png,.jpeg"
+              accept=".png,.jpeg,.jpg"
+              required
             ></input>
           </div>
           <div className="song-div">
-            <label className="song-label">Song: </label>
+            <label className="song-label">Song </label>
             <input
               type="file"
               name="song"
@@ -127,7 +154,10 @@ const MusicForm = () => {
             ></input>
           </div>
           <input type="hidden" value={userId} name="userId" />
-          <input type="submit" value="upload" className="upload-btn"></input>
+          <div className="upload-container">
+            <input type="submit" value="upload" className="upload-btn"></input>
+          </div>
+          <div className="upload-detail">total upload size limited to 50Mb</div>
         </form>
       </div>
     </div>

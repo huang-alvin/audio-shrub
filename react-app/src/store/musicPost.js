@@ -22,11 +22,10 @@ export const uploadMusic = (form) => async (dispatch) => {
     method: "POST",
     body: form,
   });
+
   const musicPost = await res.json();
-  if (musicPost.errors) {
-    return musicPost;
-  }
-  // console.log(musicPost); check for errors
+
+  return musicPost;
   //   dispatch(uploadMusicPost(musicPost));
 };
 

@@ -1,6 +1,6 @@
 .main-content-container.music-post {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 58% 42%;
   grid-template-areas: "audio cover-aux";
 }
 .post-title {
@@ -27,4 +27,7 @@
 }
 .post-collections {
   margin-right: 7%;
+}
+.audio-details-1 > div {
+  margin-top: 15px;
 }

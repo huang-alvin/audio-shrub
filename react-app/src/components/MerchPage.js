@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import MusicMerchTile from "../components/MusicMerchTile";
 import * as merchPostActions from "../store/merchPost";
+import ProfileSideBar from "./ProfileSideBar";
 import "./CSS/MusicPage.css";
 
 const MerchPage = () => {
@@ -28,7 +29,9 @@ const MerchPage = () => {
             return <MusicMerchTile post={merchPost} key={merchPost.id} />;
           })}
       </div>
-      <div className="profile-container">profile component</div>
+      <div className="profile-container">
+        <ProfileSideBar />
+      </div>
     </div>
   );
 };

@@ -12,8 +12,10 @@ import ContentHeader from "./components/ContentHeader";
 import MusicForm from "./components/MusicForm";
 import MusicPage from "./components/MusicPage";
 import MusicPost from "./components/MusicPost";
+import MerchPost from "./components/MerchPost";
 import MerchForm from "./components/MerchForm";
 import MerchPage from "./components/MerchPage";
+import Footer from "./components/Footer";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -60,6 +62,12 @@ function App() {
         >
           <MusicPost />
         </ProtectedRoute>
+        <ProtectedRoute
+          path="/users/:userId/merch-post/:merchPostId"
+          exact={true}
+        >
+          <MerchPost />
+        </ProtectedRoute>
         <ProtectedRoute path="/users/:userId/upload-music" exact={true}>
           <MusicForm />
         </ProtectedRoute>
@@ -70,6 +78,7 @@ function App() {
           <SplashPage />
         </ProtectedRoute>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

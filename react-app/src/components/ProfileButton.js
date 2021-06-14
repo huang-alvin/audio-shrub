@@ -36,7 +36,9 @@ const ProfileButton = () => {
     <>
       <button onClick={openMenu} className="profile-button">
         {imageUrl ? (
-          <img src={imageUrl} className="profile-image" />
+          <div className="navbar-image-container">
+            <img src={imageUrl} className="navbar-image" />
+          </div>
         ) : (
           <CgProfile size="25px" />
         )}

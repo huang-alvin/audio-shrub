@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import * as musicPostActions from "../store/musicPost";
 import AudioPlayer from "./AudioPlayer";
 import * as audioPlayerActions from "../store/audioPlayer";
+import ProfileSideBar from "./ProfileSideBar";
 import "./CSS/MusicPost.css";
 
 const MusicPost = () => {
@@ -43,7 +44,7 @@ const MusicPost = () => {
           <div className="audio-details-1">
             <div>Digital Album</div>
             <div>Streaming only</div>
-            <div>Buy Digital Album ${musicPost.price}</div>
+            {/* <div>Buy Digital Album ${musicPost.price}</div> */}
           </div>
           <div className="audio-details-2">{musicPost.description}</div>
         </div>
@@ -52,14 +53,16 @@ const MusicPost = () => {
             <img src={musicPost.image} className="post-image" />
           </div>
           <div className="post-additional-info">
-            <span className="post-collections">in x collections</span>
-            <span className="post-wishlist">
+            {/* <span className="post-collections">in x collections</span> */}
+            {/* <span className="post-wishlist">
               add to wishlist. react heart fill
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
-      <div className="profile-container">profile component</div>
+      <div className="profile-container">
+        <ProfileSideBar />
+      </div>
     </div>
   );
 };

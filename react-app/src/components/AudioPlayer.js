@@ -158,7 +158,7 @@ const AudioPlayer = ({ song, trackList }) => {
       <div className="audio-player-container" key={trackTitle}>
         <div className="play-btn-container">
           <button className="play-btn" onClick={playHandler}>
-            {localIsPlay ? <FaPause size="45px" /> : <FaPlay size="45px" />}
+            {localIsPlay ? <FaPause size="25px" /> : <FaPlay size="25px" />}
           </button>
         </div>
         <div className="track-details">
