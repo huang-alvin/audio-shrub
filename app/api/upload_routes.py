@@ -105,7 +105,7 @@ def upload_merch_post():
             else:
                 merch_post.image = f'https://audio-shrub.s3.amazonaws.com/images/merch/{merch_post.id}'
                 db.session.commit()
-                return {'success':'success'}
+                return {'id':merch_post.id}
         except:
             return {'errors':['image failed to upload']}
         return {"id":merch_post.id}

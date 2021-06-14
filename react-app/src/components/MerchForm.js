@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { uploadMerch } from "../store/merchPost";
 import "./CSS/MerchForm.css";
 
@@ -12,6 +12,7 @@ const MerchForm = () => {
   const [errors, setErrors] = useState([]);
   const [errorExist, setErrorExist] = useState(null);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const userId = useSelector((state) => state.session.user.id);
 
@@ -41,6 +42,8 @@ const MerchForm = () => {
       if (res.errors) {
         setErrors([...res.errors]);
         // setErrorExist(true);
+      } else {
+        history.push(`/users/${userId}/merch-post/${res.id}`);
       }
     };
     uploadPost();

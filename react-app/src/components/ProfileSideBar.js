@@ -16,7 +16,7 @@ const ProfileSideBar = () => {
     if (!profile || profile.id !== userId) {
       fetchProfile();
     }
-  });
+  }, [dispatch]);
 
   return (
     <>
