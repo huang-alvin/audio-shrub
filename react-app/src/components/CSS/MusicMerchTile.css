@@ -12,12 +12,30 @@
 .music-merch-tile-container {
   box-sizing: border-box;
   padding: 10px;
-  width: 200px;
-  height: 200px;
+  width: 79%;
+  height: 95%;
+  /* margin: auto; */
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 .music-merch-title {
   padding-top: 6px;
+  text-decoration: none;
+  font-size: 14px;
 }
-.music-merch-image-container:hover {
+/* .music-merch-image-container:hover {
   box-shadow: 10px 5px 5px gray;
+} */
+/* .music-merch-tile:hover {
+  box-shadow: 3px 2px 2px gray;
+} */
+.music-merch-tile {
+  margin: 10px;
+}
+.music-merch-tile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  max-height: 227px;
 }

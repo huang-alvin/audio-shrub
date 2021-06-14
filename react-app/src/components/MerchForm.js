@@ -38,10 +38,9 @@ const MerchForm = () => {
       form.append("user_id", userId);
 
       const res = await dispatch(uploadMerch(form));
-      // console.log(res.errors);
       if (res.errors) {
         setErrors([...res.errors]);
-        setErrorExist(true);
+        // setErrorExist(true);
       }
     };
     uploadPost();
@@ -87,7 +86,7 @@ const MerchForm = () => {
               onChange={updateTitle}
               value={title}
               className="title-input music-input"
-              //   required
+              required
             ></input>
           </div>
           <div className="description-div">
@@ -97,7 +96,7 @@ const MerchForm = () => {
               onChange={updateDescription}
               value={description}
               className="description-input"
-              //   required
+              required
             ></textarea>
           </div>
           <div>
@@ -108,9 +107,10 @@ const MerchForm = () => {
               onChange={updatePrice}
               value={price}
               className="price-input music-input"
-              //   required
+              required
               min="0"
             ></input>
+            <div className="price-detail">US Dollars</div>
           </div>
           <div className="image-div">
             <label className="image-label">Image:</label>
@@ -120,10 +120,12 @@ const MerchForm = () => {
               onChange={updateImage}
               className="image-input"
               accept=".png,.jpeg,.jpg"
+              required
             ></input>
           </div>
           <input type="hidden" value={userId} name="userId" />
           <input type="submit" value="upload" className="upload-btn"></input>
+          <div className="upload-detail">total upload size limited to 15Mb</div>
         </form>
       </div>
     </div>

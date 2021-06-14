@@ -3,11 +3,15 @@ import thunk from "redux-thunk";
 import session from "./session";
 import musicPosts from "./musicPost";
 import audioPlayer from "./audioPlayer";
+import splash from "./splash";
+import viewUser from "./viewUser";
 
 const rootReducer = combineReducers({
   session,
   musicPosts,
   audioPlayer,
+  splash,
+  viewUser,
 });
 
 let enhancer;

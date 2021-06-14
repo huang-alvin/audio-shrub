@@ -14,17 +14,25 @@ const MyPage = () => {
   return (
     <div className="user-page-wrapper">
       <div className="banner-wrapper">
-        {/* <img src={banner} className="banner-image" /> */}
-        banner image
+        {/* change back to user.banner */}
+        <img src="https://i.imgur.com/eoeruiC.jpeg" className="banner-image" />
       </div>
       <div className="tabs-container">
         <span className="music-tab tab">
-          <NavLink to={`/users/${userId}/music`} activeClassName="active-tab">
+          <NavLink
+            to={`/users/${userId}/music`}
+            activeClassName="active-tab"
+            className="tab-link"
+          >
             music{" "}
           </NavLink>
         </span>
         <span className="merch-tab tab">
-          <NavLink to={`/users/${userId}/merch`} activeClassName="active-tab">
+          <NavLink
+            to={`/users/${userId}/merch`}
+            activeClassName="active-tab"
+            className="tab-link"
+          >
             merch{" "}
           </NavLink>
         </span>

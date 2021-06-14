@@ -3,6 +3,7 @@ from werkzeug.exceptions import BadRequestKeyError
 from ..models import db, Music_Post, Song, Merchandise
 from app.forms import MerchForm, MusicForm
 from app.api.auth_routes import validation_errors_to_error_messages
+import os
 # ====== BOTO3 imports ===============
 from .boto3 import user_upload, s3_client
 from botocore.exceptions import NoCredentialsError
@@ -10,102 +11,81 @@ import boto3
 
 upload_routes = Blueprint('upload', __name__)
 
-# handle music post uploads and merch uploads
-
-#===== UPLOAD MUSIC POST
-# create musicPost instance
-# try upload song file & image file to bucket w/ music_post_id
-# no exception then i now have the url
-# create song instances
-# return musicPost to be reduced
-# <int:userId>/
-# se bucket image url = images/music_post/:musicPostId
-
-#==== UPLOAD SONGS
-# create song instance (make url nullable?)
-# then grab its id tack it onto url
-# s3 bucket url = songs/:songId
-
-#===== UPLOAD MERCH
-# try upload image to s3 bucket
-# s3 bucket url = images/merch/:merchId
-# if successful upload to bucket
-# assign merch.image = s3 url
-
 
 @upload_routes.route('/music', methods=['POST'])
 def upload_music_post():
-    # write middleware to handle err handling.
-    #  in the middleware any fails immediately returns err message
-    try:
-        form = request.form
-        musicForm = MusicForm()
-        # num_songs = form["num_songs"]
-        musicForm['csrf_token'].data = request.cookies['csrf_token']
-        # if form.validate_on_submit:
-        #     print('valdited')
-        # music_post = Music_Post(
-        #     user_id=form["user_id"],
-        #     title=form["title"],
-        #     description=form["description"],
-        #     price=form["price"]
-        # )
-        # db.session.add(music_post)
-        # db.session.commit()
+    # content file validation
+    if request.content_length /(1024*1024) > 50:
+        return {"errors": "upload size exceeds 50Mb"},413
 
-        # print(form["song"].data[0],'++++++++')
-        # for song in form["song"].data[0]:
-        #     print(song)
-        # print(request.files)
-        # print(musicForm['song'].data)
-        # # print(request.files['song']) #  BAD KEY REQUEST
-        # print(form["song"])
-        # for f in form['song']:
-        #     print(f)
-        # print(request.files['song'])
-        print(request.files['song'])
-        # print(request.files["song-0"])
-        # for x in range(0,int(num_songs)):
-        #     form_song = request.files[f"song-{x}"]
-        #     form_song.filename.rsplit(".")[0]
-        #     print(form_song)
-            # song = Song(
-            #     title=form_song.filename,
-            #     music_post_id=music_post.id,
-            # )
-        #     db.session.add(song)
-        #     db.session.flush()
-
-            # don't forget to upload the image from the form as well
-        #     upload_success = user_upload(form_song, f"song/{song.id}")
-        #     if upload_success:
-        #         song.url = f"https://audio-shrub.s3.amazonaws.com/song/{song.id}"
-        #     else:
-        #         return {"error": "song upload failed"}
+    # form input validation
+    form = request.form
+    musicForm = MusicForm()
+    num_songs = form["num_songs"]
+    musicForm['csrf_token'].data = request.cookies['csrf_token']
+    if musicForm.validate_on_submit:
+        print('inside post validation')
+        music_post = Music_Post(
+            user_id=form["user_id"],
+            title=form["title"],
+            description=form["description"],
+            price=form["price"]
+        )
+        db.session.add(music_post)
         # db.session.commit()
-        return {"success":"success"}
-    except FileNotFoundError:
-        print("The file was not found")
-        return False
-    except NoCredentialsError:
-        print("Credentials not available")
-        return False
-    except BadRequestKeyError:
-        print("bad key request")
-        return {"fail":"key req bad"}
-    except Exception as e:
-        print(e)
-        return {"errors":'failed to upload'}
+        db.session.flush()
+
+        # Upload image
+        try:
+            form_image = request.files['image']
+            image_upload_success = user_upload(form_image, f"images/music/{music_post.id}")
+            if image_upload_success:
+                music_post.image = f'https://audio-shrub.s3.amazonaws.com/images/music/{music_post.id}'
+            else:
+                return {"errors":["image failed to upload"]}
+        except Exception as e:
+            return {"errors":['image failed to upload']}
+
+        # validates song files for extension & total audio upload size BEFORE uploading
+        ALLOWABLE_AUDIO_FILES = {'mp4', 'mp3', 'wav', 'mp4a'}
+
+        for x in range(0,int(num_songs)):
+            error_list = []
+
+            # checks audio file extension
+            form_song = request.files[f"song-{x}"]
+            song_extension = form_song.filename.split(".").pop()
+            if song_extension.lower() not in ALLOWABLE_AUDIO_FILES:
+                error_list.append("audio file type not allowed")
+                return {"errors": error_list} # suboptimal return. should collect all errors first
+
+            song = Song(
+                title=form_song.filename,
+                music_post_id=music_post.id,
+            )
+            db.session.add(song)
+            db.session.flush()
+
+            upload_success = user_upload(form_song, f"song/{song.id}")
+            if upload_success:
+                song.url = f"https://audio-shrub.s3.amazonaws.com/song/{song.id}"
+            else:
+                return {"error": "song upload failed"}
+        db.session.commit()
+        return {"id":music_post.id}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @upload_routes.route('/merch', methods=['POST'])
 def upload_merch_post():
+    # content size validation
+    if request.content_length /(1024*1024) > 15:
+        return {"errors": ["upload size exceeds 15Mb"]}, 413
 
-    # validate field data before instatiation of merch
-    # validate image. file type & size
-
+    # form input validation
     form = MerchForm()
     merchForm = request.form
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
         merch_post = Merchandise(
             user_id=merchForm["user_id"],
@@ -115,14 +95,18 @@ def upload_merch_post():
             )
         db.session.add(merch_post)
         db.session.flush()
+
+        # try upload image
+        form_image = request.files['image']
         try:
             upload_success = user_upload(request.files['image'], f"images/merch/{merch_post.id}")
             if not upload_success:
-                return {'errors':'image failed to upload'}
+                return {'errors':['image failed to upload']}
             else:
                 merch_post.image = f'https://audio-shrub.s3.amazonaws.com/images/merch/{merch_post.id}'
                 db.session.commit()
                 return {'success':'success'}
         except:
-            return {'errors':'image failed to upload'}
+            return {'errors':['image failed to upload']}
+        return {"id":merch_post.id}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

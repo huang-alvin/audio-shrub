@@ -8,14 +8,18 @@ const MusicMerchTile = ({ post }) => {
     ? `/users/${post.user_id}/music-post/${post.id}`
     : `/users/${post.user_id}/merch-post/${post.id}`;
   return (
-    <Link to={path}>
+    <div className="music-merch-tile-wrapper">
       <div className="music-merch-tile-container">
-        <div className="music-merch-image-container">
-          <img src={post.image} className="music-merch-image" />
-        </div>
-        <div className="music-merch-title">{post.title}</div>
+        <Link to={path} style={{ textDecoration: "none" }}>
+          <div className="music-merch-tile">
+            <div className="music-merch-image-container">
+              <img src={post.image} className="music-merch-image" />
+            </div>
+            <div className="music-merch-title">{post.title}</div>
+          </div>
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 };
 

@@ -15,13 +15,15 @@ def seed_merchandise():
 
         for x in range(1,num_merchandise):
             num_words = random.randint(3,6)
-            num_sentences = random.randint(2,4)
+            num_sentences = random.randint(3,6)
             title_words = faker.words(nb=num_words)
+
+            joinedSentences = " ".join(faker.sentences(nb=num_sentences))
 
             merch = Merchandise(
                 user_id = user_id,
                 title = "".join(title_words),
-                description = faker.sentences(nb=num_sentences),
+                description = joinedSentences,
                 price= random.choice(price_list),
                 image= random.choice(merch_image_list)
             )

@@ -13,7 +13,8 @@
   height: 100%;
 }
 .nav-nav.active {
-  background-color: #dddddd;
+  /* background-color: #dddddd; */
+  background-color: lavender;
 }
 .auth-container {
   list-style: none;
@@ -25,4 +26,10 @@
 }
 .sign-up {
   padding-right: 25px;
+}
+#root {
+  height: 100%;
+}
+body {
+  height: 100vh;
 }
