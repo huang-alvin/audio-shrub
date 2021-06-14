@@ -12,7 +12,8 @@ Faker.seed(0)
 def seed_users():
     user_batch = [
         User(username='Demo', email='demo@aa.io',
-                password='password'),
+                password='password',
+                image='https://thumbs.dreamstime.com/b/demo-icon-demo-147077326.jpg'),
         User(username="Men I Trust", email=faker.email(),
                 password='password',
                 image="https://64.media.tumblr.com/b7fe0d404debb406f5d37bb50f73d53f/tumblr_inline_pdtre1sRrN1s9on4d_540.jpg"),
