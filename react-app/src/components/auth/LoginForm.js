@@ -44,9 +44,9 @@ const LoginForm = () => {
         <p className="login-title">Log in</p>
         <div className="login-divider" />
         <form onSubmit={onLogin} className="login-form">
-          <div>
+          <div className="auth-error-container">
             {errors.map((error) => (
-              <div>{error}</div>
+              <div key={error}>{error}</div>
             ))}
           </div>
           <div className="email-div">

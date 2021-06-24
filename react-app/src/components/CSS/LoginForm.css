@@ -71,3 +71,9 @@
   justify-content: center;
   height: 86%;
 }
+.auth-error-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  color: red;
+}

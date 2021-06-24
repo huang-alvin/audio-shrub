@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+// ===== components =======
 import LogoutButton from "./auth/LogoutButton";
 import ProfileButton from "./ProfileButton";
+import SearchBar from "./SearchBar";
+//=====================
 import logo from "../images/logo.png";
 import "./CSS/NavBar.css";
 
@@ -25,6 +28,9 @@ const NavBar = () => {
           <img src={logo} className="logo-image" />
         </Link>
       </div>
+      <span className="search-bar-wrapper">
+        <SearchBar />
+      </span>
       <ul className="auth-container">
         {location !== "/login" && !user && (
           <li>
