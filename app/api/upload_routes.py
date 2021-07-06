@@ -86,9 +86,9 @@ def upload_merch_post():
         return {"errors": ["upload size exceeds 15Mb"]}
 
     # form input validation
-    form = MerchForm()
-    merchForm = request.form
-    form['csrf_token'].data = request.cookies['csrf_token']
+     form = MerchForm()
+     merchForm = request.form
+     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         merch_post = Merchandise(
