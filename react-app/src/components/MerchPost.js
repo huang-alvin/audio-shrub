@@ -17,6 +17,7 @@ const MerchPost = () => {
       let merch_post = await dispatch(
         merchPostActions.fetchSingleMerchPost(merchPostId)
       );
+
       setMerchPost(merch_post);
     };
     FetchWrapper();
