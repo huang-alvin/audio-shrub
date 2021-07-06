@@ -39,6 +39,7 @@ const MerchForm = () => {
       form.append("user_id", userId);
 
       const res = await dispatch(uploadMerch(form));
+      console.log(res, "=====");
       if (res.errors) {
         setErrors([...res.errors]);
         // setErrorExist(true);
@@ -123,7 +124,7 @@ const MerchForm = () => {
               onChange={updateImage}
               className="image-input"
               accept=".png,.jpeg,.jpg"
-              required
+              // required
             ></input>
           </div>
           <input type="hidden" value={userId} name="userId" />

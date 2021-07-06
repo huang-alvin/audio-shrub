@@ -27,6 +27,7 @@ export const uploadMerch = (form) => async (dispatch) => {
   // .catch((e) => console.log(e));
   console.log(res, "res==");
   const merchPost = await res.json();
+  console.log(merchPost, "=====");
   return merchPost;
   //   dispatch(uploadMerchPost(merchPost));
 };
