@@ -16,14 +16,24 @@ upload_routes = Blueprint('upload', __name__)
 def upload_music_post():
     # content file validation
     # must access music files before returning anything or request will stall
-    if request.content_length / (1024*1024) > 50:
-        return {"errors": "upload size exceeds 50Mb"}, 413
+    # if request.content_length / (1024*1024) > 50:
+    #     return {"errors": "upload size exceeds 50Mb"}, 413
 
     # form input validation
     form = request.form
     musicForm = MusicForm()
     num_songs = form["num_songs"]
     musicForm['csrf_token'].data = request.cookies['csrf_token']
+
+    songList = []
+    for x in range(0, int(num_songs)):
+        form_song = request.files[f"song-{x}"]
+        songList.append(form_song)
+
+    if request.content_length / (1024*1024) > 51:
+        return {"errors": ["upload size exceeds 50Mb"]}, 413
+
+
     if musicForm.validate_on_submit:
         music_post = Music_Post(
             user_id=form["user_id"],
@@ -34,6 +44,7 @@ def upload_music_post():
         db.session.add(music_post)
         # db.session.commit()
         db.session.flush()
+
 
         # Upload image
         try:
@@ -51,15 +62,13 @@ def upload_music_post():
         ALLOWABLE_AUDIO_FILES = {'mp4', 'mp3', 'wav', 'mp4a'}
 
         for x in range(0, int(num_songs)):
-            # error_list = []
+
 
             # checks audio file extension
             form_song = request.files[f"song-{x}"]
             song_extension = form_song.filename.split(".").pop()
             if song_extension.lower() not in ALLOWABLE_AUDIO_FILES:
-                error_list.append("audio file type not allowed")
-                # suboptimal return. should collect all errors first
-                return {"errors": error_list}
+                return {"errors": ["file extension not allowed"]}
 
             song = Song(
                 title=form_song.filename,
@@ -82,13 +91,13 @@ def upload_music_post():
 def upload_merch_post():
     # content size validation
     form_image = request.files['image']
-    if request.content_length / (1024*1024) > 0:
+    if request.content_length / (1024*1024) > 16:
         return {"errors": ["upload size exceeds 15Mb"]}
 
     # form input validation
-     form = MerchForm()
-     merchForm = request.form
-     form['csrf_token'].data = request.cookies['csrf_token']
+    form = MerchForm()
+    merchForm = request.form
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         merch_post = Merchandise(
@@ -101,7 +110,7 @@ def upload_merch_post():
         db.session.flush()
 
         # try upload image
-        form_image = request.files['image']
+        # form_image = request.files['image']
         try:
             upload_success = user_upload(
                 request.files['image'], f"images/merch/{merch_post.id}")

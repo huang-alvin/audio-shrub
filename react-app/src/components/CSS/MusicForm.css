@@ -49,7 +49,7 @@
 .image-input,
 .song-input {
   width: 315px;
-  height: 35px;
+  height: 30px;
   margin-left: 10px;
   background: rgb(0, 161, 198);
   color: white;
@@ -58,6 +58,7 @@
   border: none;
   cursor: pointer;
   margin-bottom: 10px;
+  padding-top: 5px;
 }
 .upload-btn {
   width: 315px;
@@ -100,4 +101,9 @@
 .upload-detail {
   display: flex;
   justify-content: center;
+}
+
+::-webkit-file-upload-button {
+  opacity: 0;
+  width: 33%;
 }

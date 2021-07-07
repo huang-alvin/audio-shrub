@@ -155,7 +155,7 @@ const MusicForm = () => {
           </div>
           <input type="hidden" value={userId} name="userId" />
           <div className="upload-container">
-            <input type="submit" value="upload" className="upload-btn"></input>
+            <input type="submit" value="UPLOAD" className="upload-btn"></input>
           </div>
           <div className="upload-detail">total upload size limited to 50Mb</div>
         </form>

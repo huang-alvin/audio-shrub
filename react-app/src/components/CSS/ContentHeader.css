@@ -45,6 +45,7 @@
 }
 .tab-link {
   text-decoration: none;
+  color: black;
 }
 .active-tab {
   color: black;
