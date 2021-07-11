@@ -11,12 +11,12 @@ export const fetchUserInfo = (userId) => async (dispatch) => {
   dispatch(loadViewUserProfile(result));
 };
 
-const initialState = { profile: null, music: null, merch: null };
+const initialState = {};
 export default function reducer(state = initialState, action) {
   let newState = { ...state };
   switch (action.type) {
     case LOAD_VIEW_USER_PROFILE:
-      newState.profile = action.payload.user;
+      newState = { ...action.payload.user };
       return newState;
     default:
       return state;

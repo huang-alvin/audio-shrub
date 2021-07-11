@@ -5,6 +5,7 @@ import * as musicPostActions from "../store/musicPost";
 import AudioPlayer from "./AudioPlayer";
 import * as audioPlayerActions from "../store/audioPlayer";
 import ProfileSideBar from "./ProfileSideBar";
+import ProductDisplay from "./ProductDisplay";
 import "./CSS/MusicPost.css";
 
 const MusicPost = () => {
@@ -15,6 +16,7 @@ const MusicPost = () => {
 
   const { musicPostId } = useParams();
   const [musicPost, setMusicPost] = useState({});
+  const [showProductDisplay, setShowProductdisplay] = useState(false);
 
   useEffect(() => {
     const FetchWrapper = async () => {
@@ -28,8 +30,12 @@ const MusicPost = () => {
     FetchWrapper();
   }, [dispatch]);
 
+  const handlePurchaseBtn = () => {
+    setShowProductdisplay(true);
+  };
   return (
     <div className="music-content-wrapper">
+      {showProductDisplay && <ProductDisplay musicPost={musicPost} />}
       <div className="main-content-container music-post">
         <div className="audio-content">
           <div className="post-title">{musicPost.title}</div>
@@ -44,7 +50,9 @@ const MusicPost = () => {
           <div className="audio-details-1">
             <div>Digital Album</div>
             <div>Streaming only</div>
-            {/* <div>Buy Digital Album ${musicPost.price}</div> */}
+            <button onClick={handlePurchaseBtn}>
+              Buy Digital Album ${musicPost.price}
+            </button>
           </div>
           <div className="audio-details-2">{musicPost.description}</div>
         </div>

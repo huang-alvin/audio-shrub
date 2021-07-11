@@ -31,3 +31,6 @@
 .audio-details-1 > div {
   margin-top: 15px;
 }
+.music-content-wrapper {
+  position: relative;
+}

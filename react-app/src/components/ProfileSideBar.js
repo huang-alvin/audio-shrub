@@ -6,31 +6,33 @@ import "./CSS/ProfileSideBar.css";
 
 const ProfileSideBar = () => {
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.viewUser.profile);
+  const viewUser = useSelector((state) => state.viewUser);
   const { userId } = useParams();
 
   useEffect(() => {
     const fetchProfile = async () => {
+      console.log("fetch profile");
       await dispatch(viewUserActions.fetchUserInfo(userId));
     };
-    if (!profile || profile.id !== userId) {
+    if (!viewUser.id || viewUser.id !== parseInt(userId)) {
+      console.log(viewUser.id, userId);
       fetchProfile();
     }
-  }, [dispatch]);
+  }, [userId]);
 
   return (
     <>
       <div className="profile-wrapper">
         <div className="profile-image-container">
-          {profile && (
+          {viewUser && (
             <img
               // src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Say_sue_me_in_club_steel_face_at_zandari_festa_2017.jpg"
-              src={profile.image}
+              src={viewUser.image}
               className="profile-image"
             />
           )}
-          {profile && (
-            <div className="profile-username">{profile.username}</div>
+          {viewUser && (
+            <div className="profile-username">{viewUser.username}</div>
           )}
           {/* <div className="profile-description">description</div> */}
         </div>

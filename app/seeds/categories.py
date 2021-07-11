@@ -1,8 +1,11 @@
 from app.models import db, Category
 # Adds a demo user, you can add other users here if you want
-def seed_categories():
 
-    categoryList = ["rock", "pop", "math-rock", "alternative", "electronic", "chillwave", "shoegaze", "indie", "surf", "jazz", "dream-pop", "soul", "rap", "beats"]
+categoryList = ["rock", "pop", "math-rock", "alternative", "electronic", "chillwave",
+                "shoegaze", "indie", "surf", "jazz", "dream-pop", "soul", "rap", "beats"]
+
+
+def seed_categories():
 
     for category in categoryList:
         newCategory = Category(type=category)
@@ -13,6 +16,8 @@ def seed_categories():
 # SQLAlchemy doesn't have a built in function to do this
 # TRUNCATE Removes all the data from the table, and resets
 # the auto incrementing primary key
+
+
 def undo_categories():
     db.session.execute('TRUNCATE categories RESTART IDENTITY CASCADE;')
     db.session.commit()
