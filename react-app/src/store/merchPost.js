@@ -17,17 +17,12 @@ const uploadMerchPost = (merchPost) => ({
 });
 
 export const uploadMerch = (form) => async (dispatch) => {
-  // console.log("cat");
-  // by removing header, the boundary will be set correctly(automatic).
   const res = await fetch("/api/upload/merch", {
     method: "POST",
     body: form,
   });
-  // .then((res) => console.log(res, "sse==="))
-  // .catch((e) => console.log(e));
-  console.log(res, "res==");
+
   const merchPost = await res.json();
-  console.log(merchPost, "=====");
   return merchPost;
   //   dispatch(uploadMerchPost(merchPost));
 };

@@ -13,6 +13,7 @@ const MusicPage = () => {
   // const [userMusicPosts, setUserMusicPosts] = useState([]);
   // const [userMusicPosts, setUserMusicPosts] = useSelector(state=>state.viewUser?.music_posts)
   const userMusicPosts = useSelector((state) => state.viewUser?.music_posts);
+  const sessionUserId = useSelector((state) => state.session.user.id);
 
   // useEffect(() => {
   //   const fetchUserPosts = async () => {
@@ -23,13 +24,15 @@ const MusicPage = () => {
   //   };
   //   fetchUserPosts();
   // }, [dispatch]);
-  const handleRedirectBtn = () => {};
+  const handleRedirectBtn = () => {
+    history.push(`/users/${sessionUserId}/upload-music`);
+  };
 
   return (
     <div className="music-content-wrapper">
       <div className="main-content-container">
-        {!userMusicPosts ||
-          (userMusicPosts.length < 1 && (
+        {(!userMusicPosts || userMusicPosts.length < 1) &&
+          parseInt(sessionUserId) === parseInt(userId) && (
             <div className="empty-music-posts-container">
               Looks like you have no music posts
               <button
@@ -39,7 +42,7 @@ const MusicPage = () => {
                 Make a music post
               </button>
             </div>
-          ))}
+          )}
         {userMusicPosts &&
           userMusicPosts.map((post) => {
             return <MusicMerchTile post={post} key={post.id} />;
