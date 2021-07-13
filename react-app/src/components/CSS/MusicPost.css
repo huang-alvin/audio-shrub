@@ -10,12 +10,12 @@
   padding-bottom: 5%;
 }
 .post-image-container {
-  height: 400px;
-  width: 400px;
+  /* height: 400px;
+  width: 400px; */
   object-fit: cover;
   box-sizing: border-box;
-  margin-left: 5%;
-  margin-top: 5%;
+  margin-right: 7%;
+  margin-top: 6%;
 }
 .post-image {
   height: 100%;

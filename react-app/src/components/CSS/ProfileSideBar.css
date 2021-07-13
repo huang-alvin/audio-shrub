@@ -32,6 +32,7 @@
   flex-direction: column;
   text-align: center;
   text-decoration: none;
+  padding-top: 15%;
 }
 
 /* universal link styling */
@@ -40,5 +41,5 @@ a {
   color: #2d2c52;
 }
 a:hover {
-  color: rgb(142, 129, 192);
+  color: rgb(125, 114, 170);
 }

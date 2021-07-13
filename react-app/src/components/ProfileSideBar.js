@@ -16,6 +16,7 @@ const ProfileSideBar = () => {
   // fetch current profile when browsing a new profile
   useEffect(() => {
     const fetchProfile = async () => {
+      console.log("hehe");
       await dispatch(viewUserActions.fetchUserInfo(userId));
     };
     if (!viewUser.id || viewUser.id !== parseInt(userId)) {
@@ -26,6 +27,7 @@ const ProfileSideBar = () => {
   // generate discography list below user image
   useEffect(() => {
     const generateDiscographyList = () => {
+      console.log("hoho");
       let discoList = [];
       for (
         let i = 0;

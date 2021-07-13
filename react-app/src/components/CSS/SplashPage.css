@@ -19,12 +19,14 @@
 
   box-sizing: border-box;
   margin-left: 1%;
+  font-size: 20px;
 }
 .main-feature-wrapper {
   grid-area: main;
   background-color: aqua;
   max-height: 600px;
   width: 100%;
+  font-size: 50px;
 }
 .side-feature-1,
 .side-feature-2 {
