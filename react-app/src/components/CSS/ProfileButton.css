@@ -20,4 +20,23 @@
   flex-direction: column;
   justify-content: space-around;
   z-index: 3;
+  border: #eee 1px solid;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+}
+.profile-link-container {
+  padding: 5px 20px 6px 20px;
+  height: 51px;
+  display: flex;
+  align-content: center;
+}
+.profile-link {
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  color: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.profile-link-container:hover {
+  background-color: #eee;
 }

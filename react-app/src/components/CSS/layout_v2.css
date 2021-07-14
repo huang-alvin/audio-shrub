@@ -1,0 +1,27 @@
+/* header */
+.tabs-container {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.banner-wrapper {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+/* main content */
+.main-content-container .music-post {
+  box-sizing: border-box;
+  border: 1px solid #adaaaa;
+  border-radius: 6px;
+  margin: 3%;
+  background-color: #e8e8e8;
+  grid-area: main-content;
+}
+/* profile sidebar */
+.profile-container {
+  border: 1px solid #b1aeae;
+  box-sizing: border-box;
+  margin: 12% 5% 12% 5%;
+  border-radius: 6px;
+  background-color: #e8e8e8;
+}

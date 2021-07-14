@@ -45,12 +45,16 @@ const ProfileButton = () => {
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
-          <div>
-            {sessionUser.username}
-            <p>view collection</p>
+          <div>{sessionUser.username}</div>
+          <div className="profile-link-container">
+            <Link to={`/users/${userId}/collection`} className="profile-link">
+              view collection
+            </Link>
           </div>
-          <div>
-            <Link to={`/users/${userId}/music`}>my page</Link>
+          <div className="profile-link-container">
+            <Link to={`/users/${userId}/music`} className="profile-link">
+              my page
+            </Link>
           </div>
           <LogoutButton />
         </ul>

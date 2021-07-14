@@ -117,7 +117,7 @@ const MerchForm = () => {
             <div className="price-detail">US Dollars</div>
           </div>
           <div className="image-div">
-            <label className="image-label">Image:</label>
+            <label className="image-label">Image</label>
             <input
               type="file"
               name="image"
@@ -128,7 +128,7 @@ const MerchForm = () => {
             ></input>
           </div>
           <input type="hidden" value={userId} name="userId" />
-          <input type="submit" value="upload" className="upload-btn"></input>
+          <input type="submit" value="UPLOAD" className="upload-btn"></input>
           <div className="upload-detail">total upload size limited to 15Mb</div>
         </form>
       </div>

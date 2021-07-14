@@ -4,11 +4,14 @@ from .music_posts import seed_music_posts, undo_music_posts
 from .categories import seed_categories, undo_categories
 from .songs import seed_songs, undo_songs
 from .merchandise import seed_merchandise, undo_merchandise
+from .collections import seed_collections, undo_collections
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
 seed_commands = AppGroup('seed')
 
 # Creates the `flask seed all` command
+
+
 @seed_commands.command('all')
 def seed():
     seed_users()
@@ -16,11 +19,15 @@ def seed():
     seed_merchandise()
     seed_music_posts()
     seed_songs()
+    seed_collections()
     # Add other seed functions here
 
 # Creates the `flask seed undo` command
+
+
 @seed_commands.command('undo')
 def undo():
+    # undo_collections()
     undo_merchandise()
     undo_songs()
     undo_music_posts()

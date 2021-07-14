@@ -9,9 +9,14 @@
   width: 100%;
 }
 .splash-image-container {
+  padding: 10px;
+  width: 91%;
+  height: 68%;
 }
 .splash-image {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .splash-tile {
   height: 100%;
@@ -21,4 +26,5 @@
 .splash-title {
   padding-top: 3%;
   padding-left: 15px;
+  color: #505958;
 }

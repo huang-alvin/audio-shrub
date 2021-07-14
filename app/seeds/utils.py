@@ -21,16 +21,16 @@ user_image_list = [
 ]
 
 song_list = [
-   "https://audio-shrub.s3.amazonaws.com/audio-file/218801__valentinsosnitskiy__acoustic-guitar-country.mp3",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/246315__dvideoguy__folk-guitar-music-track.wav",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/257993__orangefreesounds__disco-funky-beat.wav",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/342359__stankbeast__city-rap-beat.mp3",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/347848__foolboymedia__new-york-jazz-loop.wav",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/45725__torn-rugged-audio-35__atari-mono-03.wav",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/495482__valentinsosnitskiy__guitar-jam-in-ableton-live.wav",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/49658__sub-d__more-jazz-guitar.wav",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/536202__badoink__dance-beat-fx-loop.wav",
-   "https://audio-shrub.s3.amazonaws.com/audio-file/64613__djgriffin__calculus-acid-n-kick-120bpm.wav",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/218801__valentinsosnitskiy__acoustic-guitar-country.mp3",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/246315__dvideoguy__folk-guitar-music-track.wav",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/257993__orangefreesounds__disco-funky-beat.wav",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/342359__stankbeast__city-rap-beat.mp3",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/347848__foolboymedia__new-york-jazz-loop.wav",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/45725__torn-rugged-audio-35__atari-mono-03.wav",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/495482__valentinsosnitskiy__guitar-jam-in-ableton-live.wav",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/49658__sub-d__more-jazz-guitar.wav",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/536202__badoink__dance-beat-fx-loop.wav",
+    "https://audio-shrub.s3.amazonaws.com/audio-file/64613__djgriffin__calculus-acid-n-kick-120bpm.wav",
 ]
 
 music_post_image_list = [
@@ -41,7 +41,7 @@ music_post_image_list = [
     "https://i.pinimg.com/originals/26/11/79/261179df4ee3e789c7570eea3487700b.jpg",
     "https://i.pinimg.com/736x/48/32/0e/48320e5c5d030ea53bec8cf3baed1494.jpg",
     "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/listen-or-die-hip-hop-mixtape-album-cover-art-design-template-9bd12ab25677c125abc1c025c1d6612c_screen.jpg?ts=1588403549",
-    "https://lh3.googleusercontent.com/proxy/nKGdUTB2zZYALZenV9WEaw4jBhqn8DXLt0yDOT6Ord5W5RV5Clh8nsf0RoVKSZy51Y3MwRPM0VU29ijWg-sd5LVX3u3KYajN_sSkJa0uPJwTiDMOkfhjmI4",
+    "https://i.pinimg.com/736x/e6/c2/c3/e6c2c32de43c8d5e7e2a5978be7fea76.jpg",
     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/3fc12694456069.5e7f51e8ade82.jpg",
     "https://www.designformusic.com/wp-content/uploads/2016/09/electro-synthwave-album-cover-500x500.jpg",
     "https://c4.wallpaperflare.com/wallpaper/412/477/91/music-album-covers-cover-art-wallpaper-preview.jpg",
@@ -49,7 +49,15 @@ music_post_image_list = [
     "https://www.cryochamberlabel.com/wp-content/uploads/2018/12/Dark-Ambient-of-2018-610x581.jpg",
     "https://wallpaper.dog/large/20458355.jpg",
     "https://northerntransmissions.com/wp-content/uploads/2016/10/zzzz4653555.jpg",
-    "http://crownnote.com/sites/default/files/BN-UT554_QUEENS_8S_20170821123142.jpg"
+    "http://crownnote.com/sites/default/files/BN-UT554_QUEENS_8S_20170821123142.jpg",
+    "https://www.designyourway.net/blog/wp-content/uploads/2013/01/coursewrkwavesfeb_dribbble.jpg",
+    "https://static-cse.canva.com/blob/141794/Geometric-Circles-Simple-Album-Cover.jpg",
+    "https://www.designwizard.com/wp-content/uploads/2019/09/4-Design-Wizard-Album-Cover.jpg",
+    "https://dw0i2gv3d32l1.cloudfront.net/uploads/stage/stage_image/21198/optimized_large_thumb_stage.jpg",
+    "https://www.designwizard.com/wp-content/uploads/2019/09/29-Design-Wizard-Album-Cover.jpg",
+    "https://i.pinimg.com/originals/27/1a/ca/271acac2cbe3bedd330073c4cb1aa175.jpg",
+    "https://static-cse.canva.com/blob/463435/1600w-V9UBYLgLIcY.jpg"
+    "https://static-cse.canva.com/blob/141803/Brown-Illustrated-Coffee-Acoustic-Album-Cover.jpg"
 ]
 
 merch_image_list = [
@@ -63,5 +71,10 @@ merch_image_list = [
     "https://cdn.shopify.com/s/files/1/0253/3716/7947/products/album-mockup.jpg?v=1569359820",
     "https://ih1.redbubble.net/image.1129767438.7678/ur,pin_large_front,square,600x600.u1.jpg",
     "https://i.pinimg.com/originals/06/cf/e7/06cfe7121093080db0213ea748e36a23.jpg",
-    "https://i.ebayimg.com/images/g/Yf8AAOSwFNtgb8AE/s-l300.jpg"
+    "https://i.ebayimg.com/images/g/Yf8AAOSwFNtgb8AE/s-l300.jpg",
+    "https://musicianonamission.com/wp-content/uploads/2020/04/7_hat-800x533.jpg",
+    "https://cdn.shopify.com/s/files/1/0267/4419/products/DARLING-PRODUCT-TONYLI-20200616-003_1500x1500.jpg?v=1593530931",
+    "https://ih1.redbubble.net/image.1225119748.5612/ur,pin_large_front,square,600x600.jpg",
+    "https://bashooka.com/wp-content/uploads/2018/08/album-cover-design-2018-28.jpg"
+
 ]

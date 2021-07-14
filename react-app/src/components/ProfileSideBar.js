@@ -1,40 +1,72 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as viewUserActions from "../store/viewUser";
+import { CgProfile } from "react-icons/cg";
+import DiscographyListing from "./DiscographyListing";
 import "./CSS/ProfileSideBar.css";
 
 const ProfileSideBar = () => {
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.viewUser.profile);
   const { userId } = useParams();
+  const viewUser = useSelector((state) => state.viewUser);
+  const [discographyList, setDiscographyList] = useState([]);
+  const DISCOGRAPHY_LIMIT = 3;
 
+  // fetch current profile when browsing a new profile
   useEffect(() => {
     const fetchProfile = async () => {
+      console.log("hehe");
       await dispatch(viewUserActions.fetchUserInfo(userId));
     };
-    if (!profile || profile.id !== userId) {
+    if (!viewUser.id || viewUser.id !== parseInt(userId)) {
       fetchProfile();
     }
-  }, [dispatch]);
+  }, [userId]);
+
+  // generate discography list below user image
+  useEffect(() => {
+    const generateDiscographyList = () => {
+      console.log("hoho");
+      let discoList = [];
+      for (
+        let i = 0;
+        i < viewUser?.music_posts.length && i < DISCOGRAPHY_LIMIT;
+        i++
+      ) {
+        let music_post = viewUser.music_posts[i];
+        discoList.push(music_post);
+      }
+      setDiscographyList(discoList);
+    };
+    generateDiscographyList();
+  }, [viewUser]);
 
   return (
     <>
       <div className="profile-wrapper">
         <div className="profile-image-container">
-          {profile && (
+          {viewUser?.image ? (
             <img
               // src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Say_sue_me_in_club_steel_face_at_zandari_festa_2017.jpg"
-              src={profile.image}
+              src={viewUser.image}
               className="profile-image"
             />
+          ) : (
+            <CgProfile className="default-profile-image" />
           )}
-          {profile && (
-            <div className="profile-username">{profile.username}</div>
-          )}
+
           {/* <div className="profile-description">description</div> */}
         </div>
-        {/* <div className="discography-container">discography</div> */}
+        {viewUser.username && (
+          <div className="profile-username">{viewUser.username}</div>
+        )}
+        <div className="discography-wrapper">
+          <Link to={`/users/${userId}/music`}>discography</Link>
+          {discographyList.map((musicPost) => (
+            <DiscographyListing post={musicPost} key={musicPost.id} />
+          ))}
+        </div>
       </div>
     </>
   );

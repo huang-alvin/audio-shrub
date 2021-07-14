@@ -10,12 +10,12 @@
   padding-bottom: 5%;
 }
 .post-image-container {
-  height: 400px;
-  width: 400px;
   object-fit: cover;
   box-sizing: border-box;
-  margin-left: 5%;
-  margin-top: 5%;
+  padding-right: 7%;
+  padding-top: 6%;
+  width: 100%;
+  height: 150%;
 }
 .post-image {
   height: 100%;
@@ -30,4 +30,7 @@
 }
 .audio-details-1 > div {
   margin-top: 15px;
+}
+.music-content-wrapper {
+  position: relative;
 }

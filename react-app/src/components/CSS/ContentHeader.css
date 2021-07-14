@@ -1,8 +1,8 @@
 .user-page-wrapper {
-  width: 70%;
+  /* width: 70%; */
   /* background-color: darkcyan; */
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 .banner-wrapper {
   grid-area: banner;
@@ -12,11 +12,7 @@
   background-color: pink;
   overflow: hidden;
 }
-.tabs-container {
-  width: 100%;
-  height: 50px;
-  background-color: #c3ffff;
-}
+
 .banner-image {
   width: 100%;
 }
@@ -32,19 +28,39 @@
   background: darkmagenta;
 }
 .tab {
-  margin-left: 15px;
-  margin-right: 15px;
+  /* margin-left: 15px;
+  margin-right: 15px; */
   font-size: 20px;
   cursor: pointer;
+
+  height: 100%;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tab:hover {
+  background-color: #c3ffff;
+}
+.Link:hover a {
+  color: rgb(142, 129, 192);
 }
 .tabs-container {
   box-sizing: border-box;
-  padding-left: 20px;
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 50px;
+  background-color: rgb(163, 237, 255);
 }
 .tab-link {
   text-decoration: none;
+  color: black;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .active-tab {
   color: black;
