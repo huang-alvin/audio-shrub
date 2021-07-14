@@ -20,11 +20,15 @@ class Music_Post(db.Model):
     songs = db.relationship("Song", backref="music_post", lazy="dynamic")
 
     def to_dict(self):
+        tag_list = []
+        for tag in self.tags:
+            tag_list.append(tag.type)
         return{
             "id": self.id,
             "user_id": self.user_id,
             "title": self.title,
             "description": self.description,
             "price": self.price,
-            "image": self.image
+            "image": self.image,
+            "tags": tag_list
         }
