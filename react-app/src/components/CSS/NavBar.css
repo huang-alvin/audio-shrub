@@ -33,3 +33,13 @@
 body {
   height: 100vh;
 }
+.nav-wrapper {
+  height: 100px;
+  position: relative;
+}
+.nav-container {
+  position: fixed;
+  z-index: 100;
+  background-color: lavender;
+  width: 100%;
+}

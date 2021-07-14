@@ -22,44 +22,48 @@ const NavBar = () => {
     }
   });
   return (
-    <nav className="nav-nav">
-      <div className="logo-container">
-        <Link to="/">
-          <img src={logo} className="logo-image" />
-        </Link>
-      </div>
-      <span className="search-bar-wrapper">
-        <SearchBar />
-      </span>
-      <ul className="auth-container">
-        {location !== "/login" && !user && (
-          <li>
-            <NavLink to="/login" exact={true} activeClassName="active">
-              log in
-            </NavLink>
-          </li>
-        )}
-        {location !== "/sign-up" && !user && (
-          <li>
-            <NavLink
-              to="/sign-up"
-              exact={true}
-              activeClassName="active"
-              className="sign-up"
-            >
-              sign up
-            </NavLink>
-          </li>
-        )}
-        <li>{user && <ProfileButton />}</li>
-        {/* remove logout button below
+    <div className="nav-wrapper">
+      <div className="nav-container">
+        <nav className="nav-nav">
+          <div className="logo-container">
+            <Link to="/">
+              <img src={logo} className="logo-image" />
+            </Link>
+          </div>
+          <span className="search-bar-wrapper">
+            <SearchBar />
+          </span>
+          <ul className="auth-container">
+            {location !== "/login" && !user && (
+              <li>
+                <NavLink to="/login" exact={true} activeClassName="active">
+                  log in
+                </NavLink>
+              </li>
+            )}
+            {location !== "/sign-up" && !user && (
+              <li>
+                <NavLink
+                  to="/sign-up"
+                  exact={true}
+                  activeClassName="active"
+                  className="sign-up"
+                >
+                  sign up
+                </NavLink>
+              </li>
+            )}
+            <li>{user && <ProfileButton />}</li>
+            {/* remove logout button below
         {user && (
           <li>
             <LogoutButton />
           </li>
         )} */}
-      </ul>
-    </nav>
+          </ul>
+        </nav>
+      </div>
+    </div>
   );
 };
 

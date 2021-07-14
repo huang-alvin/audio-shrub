@@ -1,6 +1,6 @@
 .main-content-container.merch-post {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 58% 42%;
 }
 .main-content-container {
   padding-top: 1%;

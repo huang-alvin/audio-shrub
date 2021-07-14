@@ -13,7 +13,7 @@ class Music_Post(db.Model):
     description = db.Column(db.Text, nullable=True)
     price = db.Column(db.Integer, nullable=False)
     image = db.Column(db.String(600), nullable=True)
-    # by = db.Column(db.String(40), nullable=True)
+    by = db.Column(db.String(40), nullable=True)
 
     tags = db.relationship("Category", secondary=tags,
                            back_populates="music_posts")

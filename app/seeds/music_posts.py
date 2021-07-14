@@ -18,15 +18,16 @@ def seed_music_posts():
 
         for x in range(0, num_music_posts):
             num_words = random.randint(3, 6)
-            num_sentences = random.randint(4, 7)
+            # num_sentences = random.randint(4, 7)
             title_words = faker.words(nb=num_words)
 
-            joinedSentences = " ".join(faker.sentences(nb=num_sentences))
+            # joinedSentences = " ".join(faker.sentences(nb=num_sentences))
 
             music_post = Music_Post(
                 user_id=user_id,
                 title=" ".join(title_words),
-                description=joinedSentences,
+                description=faker.paragraph(
+                    nb_sentences=8, variable_nb_sentences=False),
                 price=random.choice(price_list),
                 image=random.choice(music_post_image_list)
             )
@@ -40,7 +41,7 @@ def seed_music_posts():
                 else:
                     category = Category.query.get(category_id)
                     music_post.tags.append(category)
-                    category_id_set.append(category_id)
+                    category_id_set.add(category_id)
             db.session.add(music_post)
     db.session.commit()
 

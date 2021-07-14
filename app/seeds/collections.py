@@ -1,16 +1,22 @@
-from app.models import db, Category, User
+from app.models import db, My_Collection, User
 # Adds a demo user, you can add other users here if you want
-
-categoryList = ["rock", "pop", "math-rock", "alternative", "electronic", "chillwave",
-                "shoegaze", "indie", "surf", "jazz", "dream-pop", "soul", "rap", "beats"]
 
 
 def seed_collections():
 
     demo_user = User.query.get(1)
-    for category in categoryList:
-        newCategory = Category(type=category)
-        db.session.add(newCategory)
+    for x in range(10, 20):
+        collection_item = My_Collection(
+            music_post_id=x,
+            user_id=1
+        )
+        db.session.add(collection_item)
+    for x in range(10, 15):
+        collection_item = My_Collection(
+            merchandise_id=x,
+            user_id=1
+        )
+        db.session.add(collection_item)
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.
