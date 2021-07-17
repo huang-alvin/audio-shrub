@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Link from "react-router-dom";
-// import { FaSearch } from "react-icons/fa";
+
 import { IoSearchOutline } from "react-icons/io5";
 import "./CSS/SearchBar.css";
 import * as searchActions from "../store/search";
 import ReactiveSearchItem from "./ReactiveSearchItem";
 
 const SearchBar = () => {
-  // TO DO: searches in input change displying 5 of them in a dropdown
-  // pressing enter will redirect to /search with all results showing
+  const history = useHistory();
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const [showReactiveSearch, setShowReactiveSearch] = useState(false);
-  const searchRes = useSelector((state) => state.search.result);
+  const searchRes = useSelector((state) => state.search.reactiveRes);
 
   useEffect(() => {
     if (input.length > 1) {
-      console.log(input);
       dispatch(searchActions.reactiveSearchReq(input));
     } else {
-      dispatch(searchActions.clearSearchRes());
+      dispatch(searchActions.clearReactiveSearchRes());
     }
   }, [input]);
 
@@ -29,12 +28,32 @@ const SearchBar = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log("ahndel submit");
     e.preventDefault();
-    console.log("hess");
+    if (input.length > 1) {
+      const searchInput = input;
+      dispatch(searchActions.searchReq(input));
+      setInput("");
+      history.push(`/search?q=${searchInput}`);
+    }
   };
   const handleClickSearch = (e) => {
     console.log("hoho");
   };
+
+  // clicking anywhere else on doc closes reactive searches
+  useEffect(() => {
+    const closeReactiveSearch = () => {
+      if (!showReactiveSearch) return;
+      setShowReactiveSearch(false);
+    };
+    if (showReactiveSearch) {
+      document.addEventListener("click", closeReactiveSearch);
+    }
+    return () => {
+      document.removeEventListener("click", closeReactiveSearch);
+    };
+  }, [showReactiveSearch]);
 
   return (
     <div className="search-bar-container">
@@ -46,15 +65,18 @@ const SearchBar = () => {
             onChange={updateInput}
             value={input}
             placeholder="Search and discover music"
-            onFocus={() => setShowReactiveSearch(true)}
+            onClick={() => setShowReactiveSearch(true)}
           />
-          <button type="submit" className="search-btn">
+          <button type="submit" className="search-btn" onClick={handleSubmit}>
             <IoSearchOutline className="search-icon" />
           </button>
         </form>
       </div>
       {searchRes?.length > 0 && showReactiveSearch && (
-        <div className="reactive-search-wrapper">
+        <div
+          className="reactive-search-wrapper"
+          onMouseLeave={() => setShowReactiveSearch(false)}
+        >
           {searchRes.map((musicPost) => (
             <ReactiveSearchItem
               musicPost={musicPost}

@@ -1,0 +1,26 @@
+.search-listing-container {
+  display: grid;
+  grid-template-areas: "image text";
+  grid-template-rows: 175px;
+  grid-template-columns: 26% 74%;
+  border-bottom: 1px solid #debc8a;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+.search-listing-container:hover {
+  background-color: #eee;
+}
+.search-listing-image-container {
+  height: 100%;
+  grid-area: image;
+  width: 100%;
+}
+.search-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.search-listing-text-container {
+  padding-left: 10px;
+}

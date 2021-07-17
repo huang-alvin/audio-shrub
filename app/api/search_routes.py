@@ -6,11 +6,13 @@ search_routes = Blueprint('search', __name__)
 
 @search_routes.route('', methods=['POST'])
 def get_search_res():
+    input = request.get_json(force=True)
     search_query = Music_Post.query.join(User).filter(
         Music_Post.title.ilike(f'%{input}%')
         | User.username.ilike(f'%{input}%')).all()
 
     search_res = [music_post.to_dict() for music_post in search_query]
+    print(search_res)
 
     return {"search_res":  search_res}
 
