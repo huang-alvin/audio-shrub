@@ -20,13 +20,13 @@
   flex-direction: column;
   justify-content: space-around;
   z-index: 3;
-  border: #eee 1px solid;
+  border: #afaea2 1px solid;
   border-radius: 5px;
-  box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
+  box-shadow: 1px 1px 3px rgb(0 0 0 / 25%);
 }
 .profile-link-container {
   padding: 5px 20px 6px 20px;
-  height: 51px;
+  height: 31px;
   display: flex;
   align-content: center;
 }
@@ -39,4 +39,13 @@
 }
 .profile-link-container:hover {
   background-color: #eee;
+}
+.profile-dropdown-username {
+  padding-left: 20px;
+}
+.profile-logout {
+  cursor: pointer;
+}
+.profile-divider {
+  border-top: 1px solid #d0d0d0;
 }

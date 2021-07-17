@@ -30,5 +30,6 @@ class Music_Post(db.Model):
             "description": self.description,
             "price": self.price,
             "image": self.image,
-            "tags": tag_list
+            "tags": tag_list,
+            "by": self.by
         }

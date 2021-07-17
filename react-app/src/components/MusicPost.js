@@ -28,7 +28,7 @@ const MusicPost = () => {
     };
 
     FetchWrapper();
-  }, [dispatch]);
+  }, [dispatch, musicPostId]);
 
   const handlePurchaseBtn = () => {
     setShowProductdisplay(true);

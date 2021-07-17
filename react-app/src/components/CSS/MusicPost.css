@@ -34,3 +34,7 @@
 .music-content-wrapper {
   position: relative;
 }
+.audio-details-2 {
+  width: 85%;
+  line-height: 20px;
+}
