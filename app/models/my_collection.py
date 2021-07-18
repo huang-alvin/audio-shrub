@@ -10,3 +10,6 @@ class My_Collection(db.Model):
     music_post_id = db.Column(db.Integer, db.ForeignKey(
         "music_posts.id"), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    music_post = db.relationship("Music_Post", lazy="joined")
+    merchandise = db.relationship("Merchandise", lazy="joined")

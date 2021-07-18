@@ -11,6 +11,8 @@ import "./CSS/MusicPost.css";
 const MusicPost = () => {
   const dispatch = useDispatch();
 
+  const sessionUser = useSelector((state) => state.session.user);
+  const { userId } = useParams();
   const trackList = useSelector((state) => state.audioPlayer.trackList);
   const currentTrack = useSelector((state) => state.audioPlayer.currentTrack);
 
@@ -30,12 +32,31 @@ const MusicPost = () => {
     FetchWrapper();
   }, [dispatch, musicPostId]);
 
-  const handlePurchaseBtn = () => {
+  // handle open close of purchase modal
+  const openPurchase = () => {
+    if (showProductDisplay) return;
     setShowProductdisplay(true);
   };
+  useEffect(() => {
+    const closePurchase = () => {
+      if (!showProductDisplay) return;
+      setShowProductdisplay(false);
+    };
+    if (showProductDisplay) {
+      document.addEventListener("click", closePurchase);
+    }
+    return () => {
+      document.removeEventListener("click", closePurchase);
+    };
+  }, [showProductDisplay]);
+
   return (
     <div className="music-content-wrapper">
-      {showProductDisplay && <ProductDisplay musicPost={musicPost} />}
+      {showProductDisplay && (
+        <div className="purchase-overlay">
+          <ProductDisplay post={musicPost} />{" "}
+        </div>
+      )}
       <div className="main-content-container music-post">
         <div className="audio-content">
           <div className="post-title">{musicPost.title}</div>
@@ -49,13 +70,31 @@ const MusicPost = () => {
             )}
           </div>
           <div className="audio-details-1">
-            <div>Digital Album</div>
-            <div>Streaming only</div>
-            <button onClick={handlePurchaseBtn}>
-              Buy Digital Album ${musicPost.price}
-            </button>
+            <div style={{ "font-size": "20px", "font-weight": "600" }}>
+              Digital Album
+            </div>
+            <div style={{ "margin-bottom": "5%" }}>Streaming only</div>
+            {sessionUser.id !== parseInt(userId) ? (
+              <button onClick={openPurchase} className="purchase-btn">
+                {parseInt(musicPost.price) > 0
+                  ? `Buy Digital Album $${musicPost.price?.toFixed(2)}`
+                  : "Buy Digital Album FREE"}
+              </button>
+            ) : (
+              <div>Purchase price: ${musicPost.price}</div>
+            )}
           </div>
           <div className="audio-details-2">{musicPost.description}</div>
+          <div className="audio-details-3">
+            <p className="release-date"></p>
+            <p className="copyright">© all rights reserved</p>
+          </div>
+          <div className="tags-container">
+            <div style={{ "font-size": "18px" }}>Tags:</div>
+            {musicPost.tags?.map((tag) => {
+              return <span className="tag">{tag}</span>;
+            })}
+          </div>
         </div>
         <div className="cover-aux-container">
           <div className="post-image-container">

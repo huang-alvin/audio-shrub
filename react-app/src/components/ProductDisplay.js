@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/ProductDisplay.css";
 
-const ProductDisplay = ({ musicPost }) => {
+const ProductDisplay = ({ post }) => {
   return (
     <section className="product-display">
       <div className="product">
         <img
-          src="https://i.imgur.com/EHyR2nP.png"
-          alt="The cover of Stubborn Attachments"
+          // src="https://i.imgur.com/EHyR2nP.png"
+          src={post.image}
+          alt={post.title}
           className="product-image"
         />
         <div className="product-description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
+          <h3>{post.title}</h3>
+          {post.by ? <h3>ALBUM</h3> : <h3>MERCH</h3>}
+          {parseInt(post.price) > 0 ? (
+            <h5>${post.price.toFixed(2)}</h5>
+          ) : (
+            <h5>FREE</h5>
+          )}
         </div>
       </div>
       <form action="/api/purchase/create-checkout-session" method="POST">

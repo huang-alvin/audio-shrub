@@ -4,7 +4,8 @@ import "./CSS/MusicMerchTile.css";
 
 const MusicMerchTile = ({ post }) => {
   let location = useLocation().pathname;
-  const path = location.includes("music")
+  // location.includes("music")
+  const path = post.by
     ? `/users/${post.user_id}/music-post/${post.id}`
     : `/users/${post.user_id}/merch-post/${post.id}`;
   return (
