@@ -28,17 +28,14 @@ const SearchBar = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log("ahndel submit");
     e.preventDefault();
-    if (input.length > 1) {
+    if (input.length > 0) {
       const searchInput = input;
+      dispatch(searchActions.clearReactiveSearchRes());
       dispatch(searchActions.searchReq(input));
       setInput("");
       history.push(`/search?q=${searchInput}`);
     }
-  };
-  const handleClickSearch = (e) => {
-    console.log("hoho");
   };
 
   // clicking anywhere else on doc closes reactive searches
