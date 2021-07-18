@@ -39,6 +39,7 @@ const MusicPost = () => {
       <div className="main-content-container music-post">
         <div className="audio-content">
           <div className="post-title">{musicPost.title}</div>
+          <div className="post-artist">by {musicPost.by}</div>
           <div className="audio-container">
             {trackList.length && (
               <AudioPlayer

@@ -21,7 +21,6 @@ const SearchPage = () => {
     <div className="search-page-container">
       <div className="search-header-container">
         <img
-          //   src="https://www.treestodaynursery.com/wp-content/uploads/2018/04/roses1.jpg"
           src="https://s1.1zoom.me/big0/480/Germany_Parks_Autumn_477732.jpg"
           className="search-background-image"
         />
@@ -31,7 +30,9 @@ const SearchPage = () => {
         </div>
       </div>
       <div className="search-items-wrapper">
-        {searchRes.length < 1 && <div>No results found</div>}
+        {searchRes.length < 1 && (
+          <div className="empty-result">No results found</div>
+        )}
         {searchRes.length > 0 &&
           searchRes.map((musicPost) => {
             return <SearchItem musicPost={musicPost} key={musicPost.title} />;

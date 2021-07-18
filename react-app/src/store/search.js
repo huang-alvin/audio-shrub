@@ -36,7 +36,6 @@ export const searchReq = (input) => async (dispatch) => {
 
   const searchRes = await res.json();
   // TO DO ERR HANDLING
-  console.log(searchRes);
   dispatch(fetchSearch(searchRes.search_res));
 };
 

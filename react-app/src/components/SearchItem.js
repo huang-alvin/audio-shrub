@@ -19,6 +19,12 @@ const SearchItem = ({ musicPost }) => {
       <div className="search-listing-text-container">
         <div className="search-listing-title">{musicPost.title}</div>
         <div className="search-listing-artist">by {musicPost.by}</div>
+        <div className="search-listing-tags-container">
+          tags:{" "}
+          {musicPost.tags.map((tag) => {
+            return <span className="search-listing-tag">{tag}</span>;
+          })}
+        </div>
       </div>
     </div>
   );

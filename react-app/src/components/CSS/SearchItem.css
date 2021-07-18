@@ -23,4 +23,19 @@
 }
 .search-listing-text-container {
   padding-left: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.search-listing-title {
+  font-size: 26px;
+  font-weight: 650;
+}
+.search-listing-artist {
+  font-size: 22px;
+}
+
+.search-listing-tag {
+  margin-left: 5px;
+  color: grey;
 }

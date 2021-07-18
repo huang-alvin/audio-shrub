@@ -37,3 +37,9 @@
 .search-page-container {
   min-height: 815px;
 }
+.empty-result {
+  display: flex;
+  justify-content: center;
+  margin-top: 25%;
+  font-family: "Shrikhand", cursive;
+}
