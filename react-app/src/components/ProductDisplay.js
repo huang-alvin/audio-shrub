@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./CSS/ProductDisplay.css";
 
 const ProductDisplay = ({ post }) => {
+  const handleSubmit = async () => {
+    await fetch("/api/purchase/create-checkout-session", {
+      method: "POST",
+      header: { "Content-Type": "application/json" },
+      body: JSON.stringify(post),
+    });
+  };
   return (
     <section className="product-display">
       <div className="product">
@@ -22,7 +29,11 @@ const ProductDisplay = ({ post }) => {
         </div>
       </div>
       <form action="/api/purchase/create-checkout-session" method="POST">
-        <button type="submit" id="checkout-button">
+        <button
+          // type="submit"
+          id="checkout-button"
+          onClick={handleSubmit}
+        >
           Checkout
         </button>
       </form>

@@ -12,7 +12,7 @@ def get_search_res():
         | User.username.ilike(f'%{input}%')).all()
 
     search_res = [music_post.to_dict() for music_post in search_query]
-    print(search_res)
+    # print(search_res)
 
     return {"search_res":  search_res}
 

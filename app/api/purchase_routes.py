@@ -15,13 +15,15 @@ def make_purchase():
         payment_method_types=['card'],
         receipt_email='timeforchow@gmail.com',
     )
-    print(payment_intent, '===')
+    # print(payment_intent, '===')
     return {'success': 'success'}
 
 
 @purchase_routes.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     # to do change hardcoded data: img, unit amount, name
+    data = request.get_json(force=True)
+    print(data)
     try:
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
@@ -29,7 +31,7 @@ def create_checkout_session():
                 {
                     'price_data': {
                         'currency': 'usd',
-                        'unit_amount': 2000,
+                        'unit_amount': 50,
                         'product_data': {
                             'name': 'Stubborn Attachments',
                             'images': ['https://i.imgur.com/EHyR2nP.png'],
