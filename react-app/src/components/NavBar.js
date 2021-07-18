@@ -31,7 +31,7 @@ const NavBar = () => {
             </Link>
           </div>
           <span className="search-bar-wrapper">
-            <SearchBar />
+            {location !== "/login" && location !== "/sign-up" && <SearchBar />}
           </span>
           <ul className="auth-container">
             {location !== "/login" && !user && (

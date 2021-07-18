@@ -16,6 +16,8 @@ import MerchPost from "./components/MerchPost";
 import MerchForm from "./components/MerchForm";
 import MerchPage from "./components/MerchPage";
 import Footer from "./components/Footer";
+import SearchPage from "./components/SearchPage";
+import CollectionPage from "./components/CollectionPage";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -56,6 +58,9 @@ function App() {
         <ProtectedRoute path="/users/:userId/merch">
           <MerchPage />
         </ProtectedRoute>
+        <ProtectedRoute path="/users/:userId/collection">
+          <CollectionPage />
+        </ProtectedRoute>
         <ProtectedRoute
           path="/users/:userId/music-post/:musicPostId"
           exact={true}
@@ -74,6 +79,10 @@ function App() {
         <ProtectedRoute path="/users/:userId/upload-merch" exact={true}>
           <MerchForm />
         </ProtectedRoute>
+        <ProtectedRoute path="/search">
+          <SearchPage />
+        </ProtectedRoute>
+
         <ProtectedRoute path="/" exact={true}>
           <SplashPage />
         </ProtectedRoute>

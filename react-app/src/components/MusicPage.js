@@ -34,7 +34,7 @@ const MusicPage = () => {
         {(!userMusicPosts || userMusicPosts.length < 1) &&
           parseInt(sessionUserId) === parseInt(userId) && (
             <div className="empty-music-posts-container">
-              Looks like you have no music posts
+              Looks like you have no music posts.
               <button
                 className="redirect-to-upload-btn"
                 onClick={handleRedirectBtn}

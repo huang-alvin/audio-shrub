@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
+.search-items-wrapper {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.search-header-container {
+  height: 425px;
+  background-color: blue;
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+}
+.search-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.search-overlay {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  z-index: 15;
+  background: linear-gradient(45deg, #6f675f, transparent);
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.search-result-title {
+  color: white;
+  font-size: 50px;
+  font-weight: 650;
+  font-family: "Shrikhand", cursive;
+  text-align: center;
+  margin: 25px 0 25px 0;
+}
+.search-page-container {
+  min-height: 815px;
+}
+.empty-result {
+  display: flex;
+  justify-content: center;
+  margin-top: 25%;
+  font-family: "Shrikhand", cursive;
+}

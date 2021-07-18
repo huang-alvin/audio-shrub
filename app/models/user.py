@@ -30,26 +30,27 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         music_list = []
         merch_list = []
+
         for music_post in self.music_posts:
             music_obj = music_post.to_dict()
             music_list.append(music_obj)
         for merch_post in self.merch_posts:
             merch_obj = merch_post.to_dict()
             merch_list.append(merch_obj)
+
+        collection = [
+            collection_item.music_post.to_dict() if collection_item.music_post
+            else collection_item.merchandise.to_dict()
+            for collection_item in self.my_collection]
+
         return {
             "id": self.id,
             "username": self.username,
             "email": self.email,
             "image": self.image,
             "music_posts": music_list,
-            "merch_posts": merch_list
+            "merch_posts": merch_list,
+            "collection": collection
         }
 
     # def collection(self):
-    #   collection=None
-    #   for collection_item in self.my_collection():
-    #     if(collection_item.song_id):
-
-    #   return {
-
-    #   }

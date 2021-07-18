@@ -5,6 +5,7 @@ import musicPosts from "./musicPost";
 import audioPlayer from "./audioPlayer";
 import splash from "./splash";
 import viewUser from "./viewUser";
+import search from "./search";
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   audioPlayer,
   splash,
   viewUser,
+  search,
 });
 
 let enhancer;

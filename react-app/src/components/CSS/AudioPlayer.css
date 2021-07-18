@@ -71,3 +71,6 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   border: 1px solid #838282;
 }
+button {
+  cursor: pointer;
+}

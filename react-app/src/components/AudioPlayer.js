@@ -71,7 +71,10 @@ const AudioPlayer = ({ song, trackList }) => {
     slider.max = audioRef.current.duration;
 
     const durationSetter = () => {
-      let audioDuration = convertTime(audioRef.current.duration);
+      // occassionally breaking
+      // says cannot find duraiton of null
+
+      let audioDuration = convertTime(audioRef.current?.duration);
       setDuration(audioDuration);
     };
 

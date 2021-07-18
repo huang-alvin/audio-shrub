@@ -1,0 +1,11 @@
+.collection-container {
+  padding-top: 2%;
+  min-height: 900px;
+  background-color: #e6e6e6;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 250px;
+}
