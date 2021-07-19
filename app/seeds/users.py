@@ -9,55 +9,57 @@ faker = Faker()
 Faker.seed(0)
 
 # User(username="", email=faker.email(), password='password', image="")
+
+
 def seed_users():
     user_batch = [
         User(username='Demo', email='demo@aa.io',
-                password='password',
-                image='https://thumbs.dreamstime.com/b/demo-icon-demo-147077326.jpg'),
+             password='password',
+             image='https://audio-shrub.s3.amazonaws.com/seed/user/special-users/1.jpg'),
         User(username="Men I Trust", email=faker.email(),
-                password='password',
-                image="https://64.media.tumblr.com/b7fe0d404debb406f5d37bb50f73d53f/tumblr_inline_pdtre1sRrN1s9on4d_540.jpg"),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/2.jpg"),
         User(username="Covet", email=faker.email(),
-                password='password',
-                image="http://triplecrownrecords.com/uploads/attachments/cjepzf7ip09c998sa1jc7ekho-screen-shot-2018-03-13-at-2-17-27-pm.0.22.1150.718.full.png"),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/3.png"),
         User(username="Thundercat", email=faker.email(),
-                password='password',
-                image="https://i.scdn.co/image/2de0565d544c3cbdd2517b724930bb0dcee6a1c8"),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/4.jpg"),
         User(username="DOMi & JD Beck",
-            email=faker.email(),
-            password='password',
-            image="https://musicfestnews.com/wp-content/uploads/2019/08/67921332_2574787059240046_2403628947708313600_o.jpg"),
+             email=faker.email(),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/5.jpg"),
         User(username="Nahre Sol",
-            email=faker.email(),
-            password='password',
-            image="https://img.apmcdn.org/d953308f615231605117aed502402b73dba84e46/normal/0b254a-20190801-nahre-sol-bw.jpg"),
+             email=faker.email(),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/6.jpg"),
         User(username="CYNE",
-            email=faker.email(),
-            password='password',
-            image="https://s3.amazonaws.com/rapgenius/CYNE.jpg"),
+             email=faker.email(),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/7.jpg"),
         User(username="Louis Cole",
-            email=faker.email(),
-            password='password',
-            image="https://i1.wp.com/coolhunting.com/wp-content/uploads/2019/03/louis-cole.png?fit=773%2C773&ssl=1"),
+             email=faker.email(),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/8.png"),
         User(username="AAAMYYY",
-            email=faker.email(),
-            password='password',
-            image="https://yt3.ggpht.com/ytc/AAUvwngt4xxPnnQQXNqRtEi4y-sDYE38pW5Mcwm4rKnj-Q=s900-c-k-c0x00ffffff-no-rj"),
+             email=faker.email(),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/9.jpg"),
         User(username="Tricot",
-            email=faker.email(),
-            password='password',
-            image="https://s9.limitedrun.com/images/1220731/v600_tricot2017_square_942.jpg")
-        ]
+             email=faker.email(),
+             password='password',
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/10.jpg")
+    ]
     for user in user_batch:
         db.session.add(user)
 
     user_batch_2 = []
-    for x in range(0,20):
+    for x in range(0, 20):
         random_number = random.randint(0, len(user_image_list)-1)
         new_user = User(username=faker.name_nonbinary(),
-            email=faker.email(),
-            password='password',
-            image=user_image_list[random_number])
+                        email=faker.email(),
+                        password='password',
+                        image=user_image_list[random_number])
         db.session.add(new_user)
 
     db.session.commit()
@@ -66,6 +68,8 @@ def seed_users():
 # SQLAlchemy doesn't have a built in function to do this
 # TRUNCATE Removes all the data from the table, and resets
 # the auto incrementing primary key
+
+
 def undo_users():
     db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
     db.session.commit()
