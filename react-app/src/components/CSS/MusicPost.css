@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
 .main-content-container.music-post {
   display: grid;
   grid-template-columns: 58% 42%;
@@ -86,4 +87,8 @@
 }
 .tag-container {
   margin-top: 10%;
+}
+.owned-item {
+  font-family: "Shrikhand", cursive;
+  color: navy;
 }

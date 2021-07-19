@@ -12,6 +12,7 @@ const MusicPost = () => {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector((state) => state.session.user);
+  const collection = useSelector((state) => state.session.user.normCollection);
   const { userId } = useParams();
   const trackList = useSelector((state) => state.audioPlayer.trackList);
   const currentTrack = useSelector((state) => state.audioPlayer.currentTrack);
@@ -38,9 +39,14 @@ const MusicPost = () => {
     setShowProductdisplay(true);
   };
   useEffect(() => {
-    const closePurchase = () => {
-      if (!showProductDisplay) return;
-      setShowProductdisplay(false);
+    const closePurchase = (e) => {
+      let purchasing = e.target.id === "checkout-button";
+
+      if (purchasing) {
+        return;
+      } else {
+        setShowProductdisplay(false);
+      }
     };
     if (showProductDisplay) {
       document.addEventListener("click", closePurchase);
@@ -75,11 +81,15 @@ const MusicPost = () => {
             </div>
             <div style={{ "margin-bottom": "5%" }}>Streaming only</div>
             {sessionUser.id !== parseInt(userId) ? (
-              <button onClick={openPurchase} className="purchase-btn">
-                {parseInt(musicPost.price) > 0
-                  ? `Buy Digital Album $${musicPost.price?.toFixed(2)}`
-                  : "Buy Digital Album FREE"}
-              </button>
+              collection["music"][musicPostId] ? (
+                <div className="owned-item">You own this</div>
+              ) : (
+                <button onClick={openPurchase} className="purchase-btn">
+                  {parseInt(musicPost.price) > 0
+                    ? `Buy Digital Album $${musicPost.price?.toFixed(2)}`
+                    : "Buy Digital Album FREE"}
+                </button>
+              )
             ) : (
               <div>Purchase price: ${musicPost.price}</div>
             )}

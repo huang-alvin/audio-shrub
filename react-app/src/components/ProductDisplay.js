@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import "./CSS/ProductDisplay.css";
 
 const ProductDisplay = ({ post }) => {
-  const handleSubmit = async () => {
-    await fetch("/api/purchase/create-checkout-session", {
-      method: "POST",
-      header: { "Content-Type": "application/json" },
-      body: JSON.stringify(post),
-    });
-  };
+  // CORS wouldn't accept fetch req, even with CORS already set up. Also, random json serialize err
+  //  json works just not with
+  // const handleSubmit = async () => {
+  //   await fetch("/api/purchase/create-checkout-session", {
+  //     method: "POST",
+  //     header: { "Content-Type": "application/json" },
+  //     // body: JSON.stringify(post),
+  //   });
+  // };
+  const sessionUserId = useSelector((state) => state.session.user.id);
+
+  const type = post.by ? "music" : "merch";
   return (
     <section className="product-display">
       <div className="product">
@@ -29,10 +35,16 @@ const ProductDisplay = ({ post }) => {
         </div>
       </div>
       <form action="/api/purchase/create-checkout-session" method="POST">
+        <input hidden name="title" value={post.title} />
+        <input hidden name="image" value={post.image} />
+        <input hidden name="type" value={type} />
+        <input hidden name="postId" value={post.id} />
+        <input hidden name="userId" value={sessionUserId} />
+        <input hidden name="ownerId" value={post.user_id} />
         <button
-          // type="submit"
+          type="submit"
           id="checkout-button"
-          onClick={handleSubmit}
+          // onClick={handleSubmit}
         >
           Checkout
         </button>

@@ -10,6 +10,9 @@ import "./CSS/MerchPost.css";
 const MerchPost = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const merchCollection = useSelector(
+    (state) => state.session.user.normCollection.merch
+  );
   const { userId } = useParams();
   const { merchPostId } = useParams();
   const [merchPost, setMerchPost] = useState({});
@@ -59,11 +62,15 @@ const MerchPost = () => {
           <div className="audio-details-1">
             <div>
               {sessionUser.id !== parseInt(userId) ? (
-                <button onClick={openPurchase} className="purchase-btn">
-                  {parseInt(merchPost.price) > 0
-                    ? `Buy Merch $${merchPost.price?.toFixed(2)}`
-                    : "Buy Merch FREE"}
-                </button>
+                merchCollection[merchPost.id] ? (
+                  <div className="owned-item">You own this</div>
+                ) : (
+                  <button onClick={openPurchase} className="purchase-btn">
+                    {parseInt(merchPost.price) > 0
+                      ? `Buy Merch $${merchPost.price?.toFixed(2)}`
+                      : "Buy Merch FREE"}
+                  </button>
+                )
               ) : (
                 <div>
                   Purchase price: ${parseInt(merchPost.price).toFixed(2)}
