@@ -15,7 +15,7 @@ const MyPage = () => {
     <div className="user-page-wrapper">
       <div className="banner-wrapper">
         {/* change back to user.banner */}
-        <img src={banner} className="banner-image" />
+        <img src="https://i.imgur.com/eoeruiC.jpeg" className="banner-image" />
       </div>
       <div className="tabs-container">
         <span className="music-tab tab">
