@@ -13,6 +13,7 @@ const MusicPage = () => {
   // const [userMusicPosts, setUserMusicPosts] = useState([]);
   // const [userMusicPosts, setUserMusicPosts] = useSelector(state=>state.viewUser?.music_posts)
   const userMusicPosts = useSelector((state) => state.viewUser?.music_posts);
+  const uploadedMusicPosts = useSelector((state) => state.musicPost);
   const sessionUserId = useSelector((state) => state.session.user.id);
 
   // useEffect(() => {
@@ -45,6 +46,10 @@ const MusicPage = () => {
           )}
         {userMusicPosts &&
           userMusicPosts.map((post) => {
+            return <MusicMerchTile post={post} key={post.id} />;
+          })}
+        {uploadedMusicPosts &&
+          uploadedMusicPosts.map((post) => {
             return <MusicMerchTile post={post} key={post.id} />;
           })}
       </div>

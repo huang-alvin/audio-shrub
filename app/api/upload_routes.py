@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from werkzeug.exceptions import BadRequestKeyError
-from ..models import db, Music_Post, Song, Merchandise
-from app.forms import MerchForm, MusicForm
+from ..models import db, Music_Post, Song, Merchandise, User
+from app.forms import MerchForm, MusicForm, ImageForm
 from app.api.auth_routes import validation_errors_to_error_messages
 import os
 # ====== BOTO3 imports ===============
@@ -33,18 +33,17 @@ def upload_music_post():
     if request.content_length / (1024*1024) > 51:
         return {"errors": ["upload size exceeds 50Mb"]}, 413
 
-
+    username = User.query.get(form["user_id"]).username
     if musicForm.validate_on_submit:
         music_post = Music_Post(
             user_id=form["user_id"],
             title=form["title"],
             description=form["description"],
-            price=form["price"]
-        )
+            price=form["price"],
+            by=username)
         db.session.add(music_post)
         # db.session.commit()
         db.session.flush()
-
 
         # Upload image
         try:
@@ -62,7 +61,6 @@ def upload_music_post():
         ALLOWABLE_AUDIO_FILES = {'mp4', 'mp3', 'wav', 'mp4a'}
 
         for x in range(0, int(num_songs)):
-
 
             # checks audio file extension
             form_song = request.files[f"song-{x}"]
@@ -83,7 +81,7 @@ def upload_music_post():
             else:
                 return {"errors": "song upload failed"}
         db.session.commit()
-        return {"id": music_post.id}
+        return {"id": music_post.id, "music_post": music_post.to_dict()}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -119,8 +117,35 @@ def upload_merch_post():
             else:
                 merch_post.image = f'https://audio-shrub.s3.amazonaws.com/images/merch/{merch_post.id}'
                 db.session.commit()
-                return {'id': merch_post.id}
+                return {'id': merch_post.id, "merch_post": merch_post.to_dict()}
         except:
             return {'errors': 'image failed to upload'}
         return {"id": merch_post.id}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@upload_routes.route('/profile-image', methods=['POST'])
+def upload_profile_image_post():
+    form = request.form
+    imageForm = ImageForm()
+    imageForm['csrf_token'].data = request.cookies['csrf_token']
+    form_image = request.files['image']
+    if request.content_length / (1024*1024) > 10:
+        return {"errors": ["upload size exceeds 10Mb"]}
+
+    user_id = form['user_id']
+    if imageForm.validate_on_submit():
+        user = User.query.get(user_id)
+
+        try:
+            upload_success = user_upload(
+                request.files['image'], f"images/user/{user_id}")
+            if not upload_success:
+                return {'errors': ['image failed to upload']}
+            else:
+                user.image = f'https://audio-shrub.s3.amazonaws.com/images/user/{user_id}'
+                db.session.commit()
+                return {"url": user.image}
+        except:
+            return {'errors': ['image failed to upload']}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

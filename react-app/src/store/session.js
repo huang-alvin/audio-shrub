@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const SET_USER_IMAGE = "session/SET_USER_IMAGE";
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -11,7 +12,10 @@ const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-const initialState = { user: null };
+const setUserImage = (url) => ({
+  type: SET_USER_IMAGE,
+  payload: url,
+});
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
@@ -79,9 +83,23 @@ export const signUp = (username, email, password) => async (dispatch) => {
   return {};
 };
 
+export const updateUserImage = (form) => async (dispatch) => {
+  const res = await fetch("/api/upload/profile-image", {
+    method: "POST",
+    body: form,
+  });
+
+  const image = await res.json();
+  if (image.url) {
+    dispatch(setUserImage(image.url));
+  }
+  return image;
+};
+
+const initialState = { user: null };
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_USER:
+    case SET_USER: {
       let newState = { user: action.payload };
       let music = {};
       let merch = {};
@@ -95,8 +113,15 @@ export default function reducer(state = initialState, action) {
       }
       newState["user"]["normCollection"] = { music: music, merch: merch };
       return newState;
-    case REMOVE_USER:
+    }
+    case REMOVE_USER: {
       return { user: null };
+    }
+    case SET_USER_IMAGE: {
+      let newState = { ...state };
+      newState["user"]["image"] = action.payload;
+      return newState;
+    }
     default:
       return state;
   }

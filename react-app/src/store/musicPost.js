@@ -25,8 +25,8 @@ export const uploadMusic = (form) => async (dispatch) => {
 
   const musicPost = await res.json();
 
+  dispatch(uploadMusicPost(musicPost));
   return musicPost;
-  //   dispatch(uploadMusicPost(musicPost));
 };
 
 const loadUserMusic = (musicPosts) => ({
@@ -40,9 +40,9 @@ export const loadMusic = (userId) => async (dispatch) => {
   dispatch(loadUserMusic(musicPosts));
 };
 
-const initialState = {};
+const initialState = [];
 export default function reducer(state = initialState, action) {
-  let newState = { ...state };
+  let newState = [...state];
   switch (action.type) {
     case LOAD_USER_MUSIC:
       for (let musicPost in action.payload) {
@@ -50,7 +50,7 @@ export default function reducer(state = initialState, action) {
       }
       return newState;
     case UPLOAD_MUSIC:
-      newState[action.musicPost.id] = action.musicPost;
+      newState.push(action.musicPost.music_post);
       return newState;
     default:
       return state;
