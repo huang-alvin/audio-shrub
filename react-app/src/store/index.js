@@ -1,7 +1,8 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
-import musicPosts from "./musicPost";
+import musicPost from "./musicPost";
+import merchPost from "./merchPost";
 import audioPlayer from "./audioPlayer";
 import splash from "./splash";
 import viewUser from "./viewUser";
@@ -9,7 +10,8 @@ import search from "./search";
 
 const rootReducer = combineReducers({
   session,
-  musicPosts,
+  musicPost,
+  merchPost,
   audioPlayer,
   splash,
   viewUser,
