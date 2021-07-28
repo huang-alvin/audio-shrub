@@ -27,7 +27,7 @@ def make_purchase():
 @cross_origin(origin='*')
 def create_checkout_session():
     # data = request.get_json(force=True)
-
+    # print(data, '='*50)
     image = request.form['image']
     title = request.form['title']
     post_id = request.form['postId']
@@ -38,6 +38,9 @@ def create_checkout_session():
     try:
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
+            metadata={'post_type': post_type,
+                      'post_id': post_id,
+                      'user_id': user_id, },
             line_items=[
                 {
                     'price_data': {
@@ -49,6 +52,9 @@ def create_checkout_session():
                         },
                     },
                     'quantity': 1,
+                    # 'post_type':post_type,
+                    # 'post_id': post_id,
+                    # 'user_id':user_id,
                 },
             ],
             mode='payment',

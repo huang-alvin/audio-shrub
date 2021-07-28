@@ -13,6 +13,7 @@ from .api.music_post_routes import music_post_routes
 from .api.merch_post_routes import merch_post_routes
 from .api.purchase_routes import purchase_routes
 from .api.search_routes import search_routes
+from .api.webhook_routes import webhook_routes
 
 from .seeds import seed_commands
 
@@ -41,6 +42,7 @@ app.register_blueprint(music_post_routes, url_prefix='/api/music-post')
 app.register_blueprint(merch_post_routes, url_prefix='/api/merch-post')
 app.register_blueprint(purchase_routes, url_prefix='/api/purchase')
 app.register_blueprint(search_routes, url_prefix='/api/search')
+app.register_blueprint(webhook_routes, url_prefix='/api/webhook')
 db.init_app(app)
 Migrate(app, db)
 
