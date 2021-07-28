@@ -23,8 +23,8 @@ export const uploadMerch = (form) => async (dispatch) => {
   });
 
   const merchPost = await res.json();
+  dispatch(uploadMerchPost(merchPost));
   return merchPost;
-  //   dispatch(uploadMerchPost(merchPost));
 };
 
 const loadUserMerch = (merchPosts) => ({
@@ -38,9 +38,9 @@ export const loadMerch = (userId) => async (dispatch) => {
   dispatch(loadUserMerch(merchPosts));
 };
 
-const initialState = {};
+const initialState = [];
 export default function reducer(state = initialState, action) {
-  let newState = { ...state };
+  let newState = [...state];
   switch (action.type) {
     case LOAD_USER_MERCH:
       for (let merchPost in action.payload) {
@@ -48,7 +48,7 @@ export default function reducer(state = initialState, action) {
       }
       return newState;
     case UPLOAD_MERCH:
-      newState[action.merchPost.id] = action.merchPost;
+      newState.push(action.merchPost.merch_post);
       return newState;
     default:
       return state;

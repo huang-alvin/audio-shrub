@@ -39,7 +39,6 @@ const MerchForm = () => {
       form.append("user_id", userId);
 
       const res = await dispatch(uploadMerch(form));
-      console.log(res, "=====");
       if (res.errors) {
         setErrors([...res.errors]);
         // setErrorExist(true);
@@ -49,12 +48,6 @@ const MerchForm = () => {
     };
     uploadPost();
   };
-  useEffect(() => {
-    const form = document.querySelector(".music-form");
-    // const func = (e) => e.preventDefault();
-    // form.addEventListener("submit", (e) => e.preventDefault());
-    // return form.removeEventListener("submit", func);
-  });
 
   const errorComponent = (err) => {
     return (

@@ -12,6 +12,7 @@ const MerchPage = () => {
   const { userId } = useParams();
   // const [userMerchPosts, setUserMerchPosts] = useState([]);
   const userMerchPosts = useSelector((state) => state.viewUser?.merch_posts);
+  const uploadedMerchPosts = useSelector((state) => state?.merchPost);
   const sessionUserId = useSelector((state) => state.session.user.id);
 
   // useEffect(async () => {
@@ -44,6 +45,10 @@ const MerchPage = () => {
           )}
         {userMerchPosts &&
           userMerchPosts.map((merchPost) => {
+            return <MusicMerchTile post={merchPost} key={merchPost.id} />;
+          })}
+        {uploadedMerchPosts &&
+          uploadedMerchPosts.map((merchPost) => {
             return <MusicMerchTile post={merchPost} key={merchPost.id} />;
           })}
       </div>
