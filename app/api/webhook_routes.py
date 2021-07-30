@@ -12,5 +12,13 @@ stripe.api_key = STRIPE_SECRET_KEY
 @webhook_routes.route('/', methods=['POST'])
 def successful_payment():
     payload = request.get_json()
-    print(payload)
+    metadata = (payload['data']['object']['metadata']
+    user_id=metadata['user_id']
+    post_type=metadata['post_type']
+    post_id=metadata['post_id']
+
+    if post_type == 'music':
+        # add music post to users collection
+    else:
+        # add merhc post to users collection
     return {'success': 'success'}, 200
