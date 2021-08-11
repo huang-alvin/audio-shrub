@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     image = db.Column(db.String(600), nullable=True)
+    updated = db.Column(db.DateTime(), nullable=False)
 
     my_collection = db.relationship("My_Collection", lazy="select")
     music_posts = db.relationship("Music_Post", lazy="joined")
@@ -50,7 +51,8 @@ class User(db.Model, UserMixin):
             "image": self.image,
             "music_posts": music_list,
             "merch_posts": merch_list,
-            "collection": collection
+            "collection": collection,
+            "updated": self.updated
         }
 
     # def collection(self):

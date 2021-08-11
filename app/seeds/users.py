@@ -2,6 +2,7 @@ from werkzeug.security import generate_password_hash
 from app.models import db, User
 from .utils import user_image_list
 from faker import Faker
+from datetime import datetime
 import random
 
 # Adds a demo user, you can add other users here if you want
@@ -15,40 +16,50 @@ def seed_users():
     user_batch = [
         User(username='Demo', email='demo@aa.io',
              password='password',
-             image='https://audio-shrub.s3.amazonaws.com/seed/user/special-users/1.jpg'),
+             image='https://audio-shrub.s3.amazonaws.com/seed/user/special-users/1.jpg',
+             updated=datetime.now()),
         User(username="Men I Trust", email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/2.jpg"),
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/2.jpg",
+             updated=datetime.now()),
         User(username="Covet", email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/3.png"),
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/3.png",
+             updated=datetime.now()),
         User(username="Thundercat", email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/4.jpg"),
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/4.jpg",
+             updated=datetime.now()),
         User(username="DOMi & JD Beck",
              email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/5.jpg"),
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/5.jpg",
+             updated=datetime.now()),
         User(username="Nahre Sol",
              email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/6.jpg"),
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/6.jpg",
+             updated=datetime.now()),
         User(username="CYNE",
              email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/7.jpg"),
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/7.jpg",
+             updated=datetime.now()),
         User(username="Louis Cole",
              email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/8.png"),
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/8.png",
+             updated=datetime.now()),
         User(username="AAAMYYY",
              email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/9.jpg"),
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/9.jpg",
+             updated=datetime.now()),
         User(username="Tricot",
              email=faker.email(),
              password='password',
-             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/10.jpg")
+             image="https://audio-shrub.s3.amazonaws.com/seed/user/special-users/10.jpg",
+             updated=datetime.now())
     ]
     for user in user_batch:
         db.session.add(user)
@@ -59,7 +70,8 @@ def seed_users():
         new_user = User(username=faker.name_nonbinary(),
                         email=faker.email(),
                         password='password',
-                        image=user_image_list[random_number])
+                        image=user_image_list[random_number],
+                        updated=datetime.now())
         db.session.add(new_user)
 
     db.session.commit()

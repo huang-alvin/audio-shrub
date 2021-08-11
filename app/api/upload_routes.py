@@ -4,6 +4,7 @@ from ..models import db, Music_Post, Song, Merchandise, User
 from app.forms import MerchForm, MusicForm, ImageForm
 from app.api.auth_routes import validation_errors_to_error_messages
 import os
+from datetime import datetime
 # ====== BOTO3 imports ===============
 from .boto3 import user_upload, s3_client
 from botocore.exceptions import NoCredentialsError
@@ -144,8 +145,9 @@ def upload_profile_image_post():
                 return {'errors': ['image failed to upload']}
             else:
                 user.image = f'https://audio-shrub.s3.amazonaws.com/images/user/{user_id}'
+                user.updated = datetime.now()
                 db.session.commit()
-                return {"url": user.image}
+                return {"url": user.image, 'updated': user.updated}
         except:
             return {'errors': ['image failed to upload']}
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

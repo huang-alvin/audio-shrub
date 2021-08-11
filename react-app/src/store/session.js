@@ -12,9 +12,9 @@ const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-const setUserImage = (url) => ({
+const setUserImage = (image) => ({
   type: SET_USER_IMAGE,
-  payload: url,
+  payload: image,
 });
 
 export const authenticate = () => async (dispatch) => {
@@ -91,7 +91,7 @@ export const updateUserImage = (form) => async (dispatch) => {
 
   const image = await res.json();
   if (image.url) {
-    dispatch(setUserImage(image.url));
+    dispatch(setUserImage(image));
   }
   return image;
 };
@@ -119,7 +119,8 @@ export default function reducer(state = initialState, action) {
     }
     case SET_USER_IMAGE: {
       let newState = { ...state };
-      newState["user"]["image"] = action.payload;
+      newState["user"]["image"] = action.payload.url;
+      newState["user"]["updated"] = action.payload.updated;
       return newState;
     }
     default:

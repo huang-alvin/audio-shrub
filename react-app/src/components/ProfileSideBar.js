@@ -11,7 +11,7 @@ import "./CSS/ProfileSideBar.css";
 const ProfileSideBar = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const sessionUserId = useSelector((state) => state.session.user.id);
+  const sessionUser = useSelector((state) => state.session.user);
   const sessionUserImage = useSelector((state) => state.session.user.image);
   const viewUser = useSelector((state) => state.viewUser);
   const [discographyList, setDiscographyList] = useState([]);
@@ -24,23 +24,9 @@ const ProfileSideBar = () => {
     setShowImageForm(true);
   };
 
-  // useEffect(
-  //   (e) => {
-  //     const closeForm = () => {
-  //       if (!showImageForm) return;
-  //       if (e.target.id != "cancel-btn") setShowImageForm(false);
-  //     };
-  //     if (showImageForm) {
-  //       document.addEventListener("click", closeForm);
-  //     }
-  //     return () => {
-  //       document.removeEventListener("click", closeForm);
-  //     };
-  //   },
-  //   [showImageForm]
-  // );
-
-  // fetch current profile when browsing a new profile
+  useEffect(() => {
+    console.log("is the key updated?");
+  }, [sessionUser.updated]);
   useEffect(() => {
     const fetchProfile = async () => {
       await dispatch(viewUserActions.fetchUserInfo(userId));
@@ -81,15 +67,19 @@ const ProfileSideBar = () => {
         )}
         <div className="profile-image-container">
           {viewUser?.image ? (
-            userId == sessionUserId ? (
-              <img src={sessionUserImage} className="profile-image" />
+            userId == sessionUser.id ? (
+              <img
+                src={sessionUserImage}
+                className="profile-image"
+                key={sessionUser.updated}
+              />
             ) : (
-              <img src={viewUser.image} className="profile-image" />
+              <img src={viewUser.image} className="profile-image" /> // img for non-session user
             )
           ) : (
             <CgProfile className="default-profile-image" />
           )}
-          {parseInt(userId) == sessionUserId ? (
+          {parseInt(userId) == sessionUser.id ? (
             <EditButton openForm={openForm} />
           ) : null}
           {/* <div className="profile-description">description</div> */}
