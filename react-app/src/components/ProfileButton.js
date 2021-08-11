@@ -20,6 +20,10 @@ const ProfileButton = () => {
   };
 
   useEffect(() => {
+    console.log("walawaw");
+  }, [sessionUser.updated, sessionUser]);
+
+  useEffect(() => {
     const closeMenu = () => {
       if (!showMenu) return;
       setShowMenu(false);
@@ -37,7 +41,11 @@ const ProfileButton = () => {
       <button onClick={openMenu} className="profile-button">
         {imageUrl ? (
           <div className="navbar-image-container">
-            <img src={imageUrl} className="navbar-image" />
+            <img
+              src={`${imageUrl}?${sessionUser.updated}`}
+              key={sessionUser.updated}
+              className="navbar-image"
+            />
           </div>
         ) : (
           <CgProfile size="25px" />

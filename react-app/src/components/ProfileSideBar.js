@@ -12,7 +12,6 @@ const ProfileSideBar = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
-  const sessionUserImage = useSelector((state) => state.session.user.image);
   const viewUser = useSelector((state) => state.viewUser);
   const [discographyList, setDiscographyList] = useState([]);
   const [showImageForm, setShowImageForm] = useState(false);
@@ -25,9 +24,6 @@ const ProfileSideBar = () => {
   };
 
   useEffect(() => {
-    console.log("is the key updated?");
-  }, [sessionUser.updated]);
-  useEffect(() => {
     const fetchProfile = async () => {
       await dispatch(viewUserActions.fetchUserInfo(userId));
     };
@@ -35,6 +31,10 @@ const ProfileSideBar = () => {
       fetchProfile();
     }
   }, [userId]);
+
+  useEffect(() => {
+    console.log("profile sidebar");
+  }, [sessionUser.updated]);
 
   // generate discography list below user image
   useEffect(() => {
@@ -53,10 +53,6 @@ const ProfileSideBar = () => {
     generateDiscographyList();
   }, [viewUser]);
 
-  useEffect(() => {
-    console.log("chage");
-  }, [sessionUserImage]);
-
   return (
     <>
       <div className="profile-wrapper">
@@ -69,7 +65,7 @@ const ProfileSideBar = () => {
           {viewUser?.image ? (
             userId == sessionUser.id ? (
               <img
-                src={sessionUserImage}
+                src={`${sessionUser.image}?${sessionUser.updated}`}
                 className="profile-image"
                 key={sessionUser.updated}
               />
